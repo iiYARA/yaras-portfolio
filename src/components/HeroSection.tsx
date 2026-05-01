@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import FadeIn from "./FadeIn";
 import Magnet from "./Magnet";
 import jackAvatar from "@/assets/jack-avatar.png";
-import bgGif from "@/assets/background_pic.gif";
+import bgPink from "@/assets/hero_bg_pink.png";
 
 const navLinks = ["About Me", "Education", "Projects", "Skills"];
 
