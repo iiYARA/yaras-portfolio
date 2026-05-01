@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import bgGif from "@/assets/background_pic.gif";
 
 const ACCENT = "#793951";
@@ -46,38 +46,41 @@ const ProjectCard = ({
   project,
   index,
   total,
-  progress,
 }: {
   project: Project;
   index: number;
   total: number;
-  progress: MotionValue<number>;
 }) => {
-  // Each card occupies a slice of total scroll progress.
-  const slice = 1 / total;
-  const start = index * slice;
-  const end = start + slice;
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // Scale down as later cards stack on top.
-  const scale = useTransform(progress, [start, end], [1, 1 - (total - index - 1) * 0.04 - 0.04]);
-  // Slight upward drift behind the next card.
-  const y = useTransform(progress, [start, end], [0, -30]);
+  // Track this card's own scroll progress: starts when it enters,
+  // ends when the next card has fully covered it.
+  const { scrollYProgress } = useScroll({
+    target: wrapperRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Scale down + drift up slightly as the next card scrolls over it.
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
 
   return (
     <div
-      className="sticky top-24 flex items-center justify-center px-4"
+      ref={wrapperRef}
+      className="sticky top-20 h-screen flex items-center justify-center px-4"
       style={{ zIndex: index + 1 }}
     >
       <motion.article
         style={{
-          scale: index === total - 1 ? 1 : scale,
-          y: index === total - 1 ? 0 : y,
+          scale,
+          y,
           willChange: "transform",
           borderColor: ACCENT,
           background:
             "linear-gradient(135deg, rgba(20, 8, 14, 0.92) 0%, rgba(40, 16, 28, 0.92) 100%)",
+          top: `calc(80px + ${index * 14}px)`,
         }}
-        className="w-full max-w-4xl rounded-3xl border-2 backdrop-blur-md p-8 md:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
+        className="relative w-full max-w-4xl rounded-3xl border-2 backdrop-blur-md p-8 md:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
       >
         <div className="flex items-center justify-between mb-6">
           <span
@@ -96,15 +99,15 @@ const ProjectCard = ({
 
         <h3
           className="font-black uppercase tracking-tight leading-[0.95] mb-6"
-          style={{
-            color: ACCENT,
-            fontSize: "clamp(2rem, 5vw, 3.75rem)",
-          }}
+          style={{ color: ACCENT, fontSize: "clamp(2rem, 5vw, 3.75rem)" }}
         >
           {project.title}
         </h3>
 
-        <p className="text-base md:text-lg leading-relaxed max-w-2xl mb-8" style={{ color: "#F4D9E2" }}>
+        <p
+          className="text-base md:text-lg leading-relaxed max-w-2xl mb-8"
+          style={{ color: "#F4D9E2" }}
+        >
           {project.description}
         </p>
 
@@ -135,47 +138,35 @@ const ProjectCard = ({
   );
 };
 
-const ProjectsSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+const ProjectsSection = () => (
+  <section
+    id="projects"
+    className="relative"
+    style={{
+      backgroundImage: `url(${bgGif})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "repeat",
+    }}
+  >
+    <div className="pt-16 pb-8 flex justify-center">
+      <h2
+        className="hero-heading font-black uppercase tracking-tight leading-none text-center"
+        style={{ fontSize: "clamp(2.5rem, 9vw, 120px)" }}
+      >
+        Projects
+      </h2>
+    </div>
 
-  return (
-    <section
-      id="projects"
-      className="relative"
-      style={{
-        backgroundImage: `url(${bgGif})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "repeat",
-      }}
-    >
-      {/* Section heading */}
-      <div className="sticky top-0 pt-16 pb-6 z-0 flex justify-center pointer-events-none">
-        <h2
-          className="hero-heading font-black uppercase tracking-tight leading-none text-center"
-          style={{ fontSize: "clamp(2.5rem, 9vw, 120px)" }}
-        >
-          Projects
-        </h2>
-      </div>
+    {/* Each card has its own sticky wrapper — they stack as you scroll */}
+    <div className="relative">
+      {PROJECTS.map((project, i) => (
+        <ProjectCard key={project.title} project={project} index={i} total={PROJECTS.length} />
+      ))}
+    </div>
 
-      <div ref={containerRef} className="relative" style={{ height: `${PROJECTS.length * 100}vh` }}>
-        {PROJECTS.map((project, i) => (
-          <ProjectCard
-            key={project.title}
-            project={project}
-            index={i}
-            total={PROJECTS.length}
-            progress={scrollYProgress}
-          />
-        ))}
-      </div>
-    </section>
-  );
-};
+    <div className="h-20" />
+  </section>
+);
 
 export default ProjectsSection;
