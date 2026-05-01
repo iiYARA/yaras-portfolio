@@ -34,12 +34,12 @@ const HeroSection = () => (
     </FadeIn>
 
     {/* Portrait */}
-    <FadeIn delay={0.6} y={30} className="absolute left-1/2 -translate-x-1/2 z-10 top-1/2 -translate-y-1/2 w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px]">
-      <Magnet padding={200} strength={6}>
+    <FadeIn delay={0.6} y={30} className="absolute left-1/2 -translate-x-1/2 z-10 top-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px]">
+      <Magnet padding={150} strength={3}>
         <img
           src={jackAvatar}
           alt="Yara 3D Avatar"
-          className="w-full h-auto drop-shadow-2xl animate-float"
+          className="w-full h-auto drop-shadow-2xl"
         />
       </Magnet>
     </FadeIn>
