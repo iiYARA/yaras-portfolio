@@ -154,7 +154,7 @@ const ProjectsSection = () => {
     <section
       id="projects"
       ref={ref}
-      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] overflow-hidden"
+      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]"
       style={{
         backgroundImage: `url(${bgPink})`,
         backgroundSize: "cover",
@@ -178,7 +178,7 @@ const ProjectsSection = () => {
       </div>
 
       {/* Sticky stacking cards — overlapping deck */}
-      <div ref={ref} className="relative pb-32">
+      <div className="relative pb-32">
         {projects.map((project, i) => {
           // Each card's "active" scroll window is its slice of the track.
           // While the NEXT card is sliding up, this card scales down + lifts.
