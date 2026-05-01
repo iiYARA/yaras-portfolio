@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import FadeIn from "./FadeIn";
 import ContactButton from "./ContactButton";
-import bgGif from "@/assets/background_pic.gif";
+import bgGif from "@/assets/about/about_bg.jpg";
 import brainTabs from "@/assets/about/brain_tabs.png";
 import keepCoding from "@/assets/about/keep_coding.png";
 import pixelComputers from "@/assets/about/pixel_computers.png";
