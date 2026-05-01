@@ -32,10 +32,10 @@ const HeroSection = () => {
       className="h-screen flex flex-col relative"
       style={{
         overflowX: "clip",
-        backgroundImage: `url(${bgGif})`,
+        backgroundImage: `url(${bgPink})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "repeat",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Navbar */}
