@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { useRef as useRefReact } from "react";
 import FadeIn from "./FadeIn";
 import ContactButton from "./ContactButton";
 import bgPink from "@/assets/about/pink_radial_bg.png";
