@@ -114,14 +114,14 @@ const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 mt-6 sm:mt-8 md:mt-10">
           <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 md:col-span-1">
             <div
-              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-white/30"
+              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-[#793951]/30"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255,182,205,0.4), rgba(255,220,232,0.25))",
               }}
             />
             <div
-              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-white/30"
+              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-[#793951]/30"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255,220,232,0.35), rgba(255,182,205,0.5))",
@@ -130,7 +130,7 @@ const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps
           </div>
           <div className="md:col-span-2">
             <div
-              className="rounded-2xl sm:rounded-3xl w-full h-full min-h-[200px] sm:min-h-[260px] md:min-h-[340px] border border-white/30"
+              className="rounded-2xl sm:rounded-3xl w-full h-full min-h-[200px] sm:min-h-[260px] md:min-h-[340px] border border-[#793951]/30"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255,200,221,0.45), rgba(255,182,205,0.35))",
