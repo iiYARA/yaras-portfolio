@@ -1,128 +1,206 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import FadeIn from "./FadeIn";
+import bgPink from "@/assets/about/pink_radial_bg.png";
 
 type Project = {
-  title: string;
+  number: string;
+  category: string;
+  name: string;
   description: string;
-  tags: string[];
-  gradient: string;
+  tech: string;
 };
 
 const projects: Project[] = [
   {
-    title: "AI Study Companion",
+    number: "01",
+    category: "Academic",
+    name: "Machine Learning Project",
     description:
-      "A machine-learning powered study assistant that summarizes lectures, generates quizzes, and tracks progress for university students.",
-    tags: ["Python", "PyTorch", "FastAPI"],
-    gradient: "from-[#FFD1DC] via-[#FFB6C1] to-[#FF85A2]",
+      "A project focused on applying machine learning concepts to analyze data and build predictive models based on real datasets.",
+    tech: "Python, Machine Learning, Data Analysis",
   },
   {
-    title: "Algorithm Visualizer",
+    number: "02",
+    category: "Academic",
+    name: "Web Application Development",
     description:
-      "An interactive web app that animates classic data structures and algorithms, built to make CS fundamentals click.",
-    tags: ["React", "TypeScript", "D3.js"],
-    gradient: "from-[#FFE5EC] via-[#FFC2D1] to-[#FF9EBB]",
+      "A web development project demonstrating responsive design, user interaction, and front-end structure.",
+    tech: "HTML, CSS, JavaScript",
   },
   {
-    title: "Smart Campus Bot",
+    number: "03",
+    category: "Academic",
+    name: "Software Engineering Project",
     description:
-      "A conversational AI that helps Effat students find courses, deadlines, and campus resources using NLP.",
-    tags: ["NLP", "Transformers", "Node.js"],
-    gradient: "from-[#FFDCE5] via-[#FFB3C6] to-[#FF8FB1]",
-  },
-  {
-    title: "Portfolio Playground",
-    description:
-      "This very portfolio — an experiment in scroll-driven motion, soft pastels, and playful 3D character interactions.",
-    tags: ["React", "Framer Motion", "Tailwind"],
-    gradient: "from-[#FFE0EC] via-[#FFBED1] to-[#FF96B5]",
+      "A structured project applying software engineering concepts including system design, requirements, and implementation.",
+    tech: "Software Engineering, System Design, Programming",
   },
 ];
 
-const ProjectCard = ({
-  project,
-  index,
-  total,
-  progress,
-}: {
+interface CardProps {
   project: Project;
   index: number;
-  total: number;
   progress: MotionValue<number>;
-}) => {
-  // Each card occupies a slice of the scroll. After its slice ends, it scales down.
-  const slice = 1 / total;
-  const start = index * slice;
-  const end = start + slice;
+  range: [number, number];
+  targetScale: number;
+  targetY: number;
+}
 
-  const scale = useTransform(progress, [start, end], [1, 0.92]);
-  const y = useTransform(progress, [start, end], [0, -40]);
-  const opacity = useTransform(progress, [start, end], [1, 0.7]);
+const ProjectCard = ({ project, progress, range, targetScale, targetY }: CardProps) => {
+  const scale = useTransform(progress, range, [1, targetScale]);
+  const y = useTransform(progress, range, [0, targetY]);
 
   return (
-    <div
-      className="h-screen sticky top-24 flex items-center justify-center px-6"
-      style={{ zIndex: index + 1 }}
-    >
+    <div className="flex h-full items-start justify-center px-4 sm:px-6 md:px-10 pt-4 md:pt-6">
       <motion.div
-        style={{ scale, y, opacity, willChange: "transform" }}
-        className={`w-full max-w-4xl rounded-3xl p-10 md:p-14 bg-gradient-to-br ${project.gradient} shadow-[0_30px_80px_-20px_rgba(255,133,162,0.45)] border border-white/40 backdrop-blur-sm`}
+        style={{ scale, y, willChange: "transform" }}
+        className="relative w-full max-w-[1200px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#793951] p-4 sm:p-6 md:p-8 overflow-hidden"
       >
-        <div className="flex items-center justify-between mb-6">
-          <span className="text-white/80 font-mono text-sm tracking-widest">
-            0{index + 1} / 0{total}
-          </span>
-          <div className="flex flex-wrap gap-2 justify-end">
-            {project.tags.map((t) => (
+        {/* glassmorphism pink background */}
+        <div
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(255,200,221,0.55) 0%, rgba(255,182,205,0.35) 50%, rgba(255,220,232,0.5) 100%)",
+            backdropFilter: "blur(24px) saturate(1.4)",
+            WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+          }}
+        />
+
+        {/* Top row */}
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
+          <div className="flex flex-col gap-2 md:gap-3">
+            <div className="flex items-center gap-3 sm:gap-4">
               <span
-                key={t}
-                className="px-3 py-1 rounded-full bg-white/40 text-[#7a2a45] text-xs font-semibold backdrop-blur-sm"
+                className="font-black text-[#793951]"
+                style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)" }}
               >
-                {t}
+                {project.number}
               </span>
-            ))}
+              <span
+                className="uppercase tracking-[0.25em] text-[#793951]/70 font-semibold text-xs sm:text-sm md:text-base"
+              >
+                {project.category}
+              </span>
+            </div>
+            <h3
+              className="font-bold uppercase text-[#793951] leading-tight"
+              style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}
+            >
+              {project.name}
+            </h3>
+            <p
+              className="text-[#793951]/80 font-medium leading-relaxed max-w-[640px] mt-1 sm:mt-2"
+              style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.05rem)" }}
+            >
+              {project.description}
+            </p>
+            <p className="text-[#793951]/70 font-medium text-xs sm:text-sm md:text-base mt-2">
+              {project.tech}
+            </p>
+          </div>
+
+          <div className="flex-shrink-0 self-start">
+            <button className="rounded-full border border-[#793951] text-[#793951] hover:bg-[rgba(121,57,81,0.1)] transition-colors px-6 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-xs sm:text-sm font-medium uppercase tracking-widest cursor-pointer whitespace-nowrap">
+              View Project
+            </button>
           </div>
         </div>
-        <h3 className="text-4xl md:text-6xl font-black text-[#5a1f33] leading-tight mb-4 uppercase">
-          {project.title}
-        </h3>
-        <p className="text-[#5a1f33]/80 text-lg md:text-xl leading-relaxed max-w-2xl">
-          {project.description}
-        </p>
+
+        {/* Bottom row: 2 small left, 1 big right */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 mt-6 sm:mt-8 md:mt-10">
+          <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 md:col-span-1">
+            <div
+              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-[#793951]/30"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255,182,205,0.4), rgba(255,220,232,0.25))",
+              }}
+            />
+            <div
+              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-[#793951]/30"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255,220,232,0.35), rgba(255,182,205,0.5))",
+              }}
+            />
+          </div>
+          <div className="md:col-span-2">
+            <div
+              className="rounded-2xl sm:rounded-3xl w-full h-full min-h-[200px] sm:min-h-[260px] md:min-h-[340px] border border-[#793951]/30"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255,200,221,0.45), rgba(255,182,205,0.35))",
+              }}
+            />
+          </div>
+        </div>
       </motion.div>
     </div>
   );
 };
 
 const ProjectsSection = () => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
+  const totalCards = projects.length;
+
   return (
     <section
       id="projects"
       ref={ref}
-      className="relative bg-[#FFF0F5]"
-      style={{ height: `${projects.length * 100}vh` }}
+      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] overflow-hidden"
+      style={{
+        backgroundImage: `url(${bgPink})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
-      <div className="sticky top-0 pt-24 pb-8 text-center pointer-events-none z-0">
-        <h2 className="text-5xl md:text-7xl font-black uppercase text-[#FF85A2] tracking-tight">
-          Projects
-        </h2>
+      {/* Heading */}
+      <div className="pt-20 sm:pt-24 md:pt-28 pb-10 sm:pb-14 md:pb-16 px-5 flex justify-center">
+        <FadeIn y={40}>
+          <h2
+            className="font-black uppercase tracking-tight leading-none text-center text-transparent"
+            style={{
+              fontSize: "clamp(3rem, 12vw, 160px)",
+              WebkitTextStroke: "1.5px #D7E2EA",
+            }}
+          >
+            Projects
+          </h2>
+        </FadeIn>
       </div>
-      <div className="-mt-32">
-        {projects.map((p, i) => (
-          <ProjectCard
-            key={p.title}
-            project={p}
-            index={i}
-            total={projects.length}
-            progress={scrollYProgress}
-          />
-        ))}
+
+      {/* Sticky stacking cards */}
+      <div ref={ref} className="relative h-[360vh] pb-32">
+        {projects.map((project, i) => {
+          const targetScale = 1 - (totalCards - 1 - i) * 0.03;
+          const targetY = -(totalCards - 1 - i) * 18;
+          const start = i / totalCards;
+          const end = Math.min(start + 1 / totalCards, 1);
+          return (
+            <div
+              key={project.number}
+              className="sticky top-24 h-screen"
+              style={{ zIndex: i + 1 }}
+            >
+              <ProjectCard
+                project={project}
+                index={i}
+                progress={scrollYProgress}
+                range={[start, end]}
+                targetScale={targetScale}
+                targetY={targetY}
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
