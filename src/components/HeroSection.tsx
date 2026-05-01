@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import FadeIn from "./FadeIn";
 import Magnet from "./Magnet";
 import jackAvatar from "@/assets/jack-avatar.png";
-import bgPink from "@/assets/hero_bg_pink.png";
+import bgGif from "@/assets/background_pic.gif";
 
 const navLinks = ["About Me", "Education", "Projects", "Skills"];
 
@@ -32,10 +32,10 @@ const HeroSection = () => {
       className="h-screen flex flex-col relative"
       style={{
         overflowX: "clip",
-        backgroundImage: `url(${bgPink})`,
+        backgroundImage: `url(${bgGif})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        backgroundRepeat: "repeat",
       }}
     >
       {/* Navbar */}
