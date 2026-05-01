@@ -79,7 +79,7 @@ const ProjectCard = ({ project, progress, range, targetScale, targetY }: CardPro
                 {project.number}
               </span>
               <span
-                className="uppercase tracking-[0.25em] text-[#793951]/70 font-semibold text-xs sm:text-sm md:text-base"
+                className="uppercase tracking-[0.25em] text-white/80 font-semibold text-xs sm:text-sm md:text-base"
               >
                 {project.category}
               </span>
@@ -178,17 +178,20 @@ const ProjectsSection = () => {
       </div>
 
       {/* Sticky stacking cards */}
-      <div ref={ref} className="relative h-[360vh] pb-32">
+      <div className="relative h-[360vh] pb-32">
         {projects.map((project, i) => {
           const targetScale = 1 - (totalCards - 1 - i) * 0.03;
-          const targetY = -(totalCards - 1 - i) * 18;
+          const targetY = 0;
           const start = i / totalCards;
           const end = Math.min(start + 1 / totalCards, 1);
           return (
             <div
               key={project.number}
-              className="sticky top-24 h-screen"
-              style={{ zIndex: i + 1 }}
+              className="sticky h-screen"
+              style={{
+                zIndex: i + 1,
+                top: `calc(80px + ${i * 24}px)`,
+              }}
             >
               <ProjectCard
                 project={project}
