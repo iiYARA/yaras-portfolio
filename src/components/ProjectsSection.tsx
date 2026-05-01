@@ -73,7 +73,7 @@ const ProjectCard = ({ project, progress, range, targetScale, targetY }: CardPro
           <div className="flex flex-col gap-2 md:gap-3">
             <div className="flex items-center gap-3 sm:gap-4">
               <span
-                className="font-black text-white"
+                className="font-black text-[#793951]"
                 style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)" }}
               >
                 {project.number}
@@ -85,18 +85,18 @@ const ProjectCard = ({ project, progress, range, targetScale, targetY }: CardPro
               </span>
             </div>
             <h3
-              className="font-bold uppercase text-white leading-tight"
+              className="font-bold uppercase text-[#793951] leading-tight"
               style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}
             >
               {project.name}
             </h3>
             <p
-              className="text-white/90 font-medium leading-relaxed max-w-[640px] mt-1 sm:mt-2"
+              className="text-[#793951]/80 font-medium leading-relaxed max-w-[640px] mt-1 sm:mt-2"
               style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.05rem)" }}
             >
               {project.description}
             </p>
-            <p className="text-white/80 font-medium text-xs sm:text-sm md:text-base mt-2">
+            <p className="text-[#793951]/70 font-medium text-xs sm:text-sm md:text-base mt-2">
               {project.tech}
             </p>
           </div>
@@ -169,7 +169,7 @@ const ProjectsSection = () => {
             className="font-black uppercase tracking-tight leading-none text-center text-transparent"
             style={{
               fontSize: "clamp(3rem, 12vw, 160px)",
-              WebkitTextStroke: "1.5px #FFFFFF",
+              WebkitTextStroke: "1.5px #793951",
             }}
           >
             Projects
