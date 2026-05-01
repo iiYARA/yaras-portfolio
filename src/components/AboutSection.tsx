@@ -2,21 +2,18 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import FadeIn from "./FadeIn";
 import ContactButton from "./ContactButton";
-import moonIcon from "@/assets/about/moon_icon.png";
-import legoIcon from "@/assets/about/lego_icon.png";
-import p59 from "@/assets/about/p59_1.png";
-import group134 from "@/assets/about/group_134.png";
+import bgGif from "@/assets/background_pic.gif";
+import brainTabs from "@/assets/about/brain_tabs.png";
+import keepCoding from "@/assets/about/keep_coding.png";
+import pixelComputers from "@/assets/about/pixel_computers.png";
+import pinkCursor from "@/assets/about/pink_cursor.png";
 
 const PARAGRAPH =
   "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!";
 
 const Char = ({ char, progress, range }: { char: string; progress: MotionValue<number>; range: [number, number] }) => {
   const opacity = useTransform(progress, range, [0.2, 1]);
-  return (
-    <motion.span style={{ opacity }}>
-      {char}
-    </motion.span>
-  );
+  return <motion.span style={{ opacity }}>{char}</motion.span>;
 };
 
 const AnimatedParagraph = ({ text }: { text: string }) => {
@@ -46,22 +43,28 @@ const AboutSection = () => (
   <section
     id="about-me"
     className="relative min-h-screen flex flex-col items-center justify-center px-5 sm:px-8 md:px-10 py-20 overflow-hidden"
+    style={{
+      backgroundImage: `url(${bgGif})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "repeat",
+    }}
   >
     {/* Decorative corner images */}
     <FadeIn delay={0.1} x={-80} y={0} duration={0.9} className="absolute top-[4%] left-[1%] sm:left-[2%] md:left-[4%] pointer-events-none">
-      <img src={moonIcon} alt="" className="w-[120px] sm:w-[160px] md:w-[210px] h-auto" />
+      <img src={brainTabs} alt="" className="w-[120px] sm:w-[160px] md:w-[210px] h-auto" />
     </FadeIn>
 
     <FadeIn delay={0.15} x={80} y={0} duration={0.9} className="absolute top-[4%] right-[1%] sm:right-[2%] md:right-[4%] pointer-events-none">
-      <img src={legoIcon} alt="" className="w-[120px] sm:w-[160px] md:w-[210px] h-auto" />
+      <img src={pixelComputers} alt="" className="w-[120px] sm:w-[160px] md:w-[210px] h-auto" />
     </FadeIn>
 
     <FadeIn delay={0.25} x={-80} y={0} duration={0.9} className="absolute bottom-[8%] left-[3%] sm:left-[6%] md:left-[10%] pointer-events-none">
-      <img src={p59} alt="" className="w-[100px] sm:w-[140px] md:w-[180px] h-auto" />
+      <img src={pinkCursor} alt="" className="w-[100px] sm:w-[140px] md:w-[180px] h-auto" />
     </FadeIn>
 
     <FadeIn delay={0.3} x={80} y={0} duration={0.9} className="absolute bottom-[8%] right-[3%] sm:right-[6%] md:right-[10%] pointer-events-none">
-      <img src={group134} alt="" className="w-[130px] sm:w-[170px] md:w-[220px] h-auto" />
+      <img src={keepCoding} alt="" className="w-[130px] sm:w-[170px] md:w-[220px] h-auto" />
     </FadeIn>
 
     {/* Heading + paragraph */}
