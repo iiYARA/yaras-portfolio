@@ -38,7 +38,7 @@ const HeroSection = () => (
       <Magnet padding={150} strength={3}>
         <img
           src={jackAvatar}
-          alt="Jack 3D Avatar"
+          alt="Yara 3D Avatar"
           className="w-full h-auto drop-shadow-2xl"
         />
       </Magnet>
