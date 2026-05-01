@@ -154,7 +154,7 @@ const ProjectsSection = () => {
     <section
       id="projects"
       ref={ref}
-      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] overflow-hidden"
+      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]"
       style={{
         backgroundImage: `url(${bgPink})`,
         backgroundSize: "cover",
@@ -178,23 +178,25 @@ const ProjectsSection = () => {
       </div>
 
       {/* Sticky stacking cards — overlapping deck */}
-      <div className="relative h-[360vh] pb-32">
+      <div className="relative pb-32">
         {projects.map((project, i) => {
-          // Each subsequent card scales the previous down a bit and lifts it up
-          const targetScale = 1 - (totalCards - i) * 0.05;
-          const targetY = -(totalCards - i) * 12;
+          // Each card's "active" scroll window is its slice of the track.
+          // While the NEXT card is sliding up, this card scales down + lifts.
           const start = i / totalCards;
-          const end = 1;
+          const end = (i + 1) / totalCards;
+          // Last card stays at scale 1; each earlier card shrinks per card on top of it.
+          const targetScale = 1 - (totalCards - i - 1) * 0.05;
+          const targetY = -(totalCards - i - 1) * 20;
           return (
             <div
               key={project.number}
               className="sticky"
               style={{
+                top: `calc(80px + ${i * 20}px)`,
                 zIndex: i + 1,
-                top: `calc(80px + ${i * 24}px)`,
-                // Negative margin pulls the next card up so they overlap
-                // instead of stacking as a normal vertical list.
-                marginTop: i === 0 ? 0 : "-70vh",
+                height: "100vh",
+                // pull each subsequent sticky card up so it overlaps the previous one
+                marginTop: i === 0 ? 0 : "-40vh",
               }}
             >
               <ProjectCard
