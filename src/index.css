@@ -4,35 +4,35 @@
 
 @layer base {
   :root {
-    --background: 340 50% 97%;
-    --foreground: 330 20% 20%;
-    --card: 340 50% 97%;
-    --card-foreground: 330 20% 20%;
-    --popover: 340 50% 97%;
-    --popover-foreground: 330 20% 20%;
-    --primary: 340 60% 65%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 280 30% 90%;
-    --secondary-foreground: 330 20% 25%;
-    --muted: 340 30% 92%;
-    --muted-foreground: 330 15% 50%;
-    --accent: 280 30% 90%;
-    --accent-foreground: 330 20% 25%;
+    --background: 0 0% 5%;
+    --foreground: 210 25% 91%;
+    --card: 0 0% 5%;
+    --card-foreground: 210 25% 91%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 210 25% 91%;
+    --primary: 210 25% 91%;
+    --primary-foreground: 0 0% 5%;
+    --secondary: 217 32.6% 17.5%;
+    --secondary-foreground: 210 25% 91%;
+    --muted: 217 32.6% 17.5%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 32.6% 17.5%;
+    --accent-foreground: 210 25% 91%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 340 30% 88%;
-    --input: 340 30% 88%;
-    --ring: 340 50% 70%;
+    --border: 217 32.6% 17.5%;
+    --input: 217 32.6% 17.5%;
+    --ring: 212 27% 84%;
     --radius: 0.5rem;
 
-    --sidebar-background: 340 50% 97%;
-    --sidebar-foreground: 330 20% 20%;
-    --sidebar-primary: 340 60% 65%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 280 30% 92%;
-    --sidebar-accent-foreground: 330 20% 25%;
-    --sidebar-border: 340 30% 88%;
-    --sidebar-ring: 340 50% 70%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -43,6 +43,7 @@
 }
 
 html, body, #root {
+  background: #0C0C0C;
   font-family: 'Kanit', sans-serif;
 }
 
@@ -56,27 +57,10 @@ html, body, #root {
 }
 
 .hero-heading {
-  background: linear-gradient(180deg, #E8879B 0%, #D46B8A 50%, #B85680 100%);
+  background: linear-gradient(180deg, #FFB6C1 0%, #FF85A2 50%, #FF69B4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-.nav-pill-btn {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(219, 160, 190, 0.3);
-  color: #9B6B8A;
-  box-shadow: 0 4px 16px rgba(180, 120, 150, 0.1);
-}
-
-.nav-pill-btn:hover {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(219, 160, 190, 0.5);
-  color: #7A4A6A;
-  box-shadow: 0 6px 24px rgba(180, 120, 150, 0.2);
-  transform: translateY(-2px) scale(1.03);
 }
 
 .liquid-glass-btn {
