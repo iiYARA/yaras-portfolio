@@ -52,11 +52,11 @@ const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps
 
   return (
     <div
-      className="sticky top-24 md:top-32 flex items-center justify-center px-4 sm:px-6 md:px-10"
-      style={{ top: `calc(6rem + ${index * 28}px)` }}
+      className="h-screen sticky flex items-center justify-center px-4 sm:px-6 md:px-10"
+      style={{ top: `calc(80px + ${index * 28}px)`, zIndex: index + 1 }}
     >
       <motion.div
-        style={{ scale, willChange: "transform" }}
+        style={{ scale, willChange: "transform", transformOrigin: "top center" }}
         className="relative w-full max-w-[1200px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-white/40 p-4 sm:p-6 md:p-8 overflow-hidden"
       >
         {/* glassmorphism pink background */}
@@ -156,7 +156,7 @@ const ProjectsSection = () => {
     <section
       id="projects"
       ref={ref}
-      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] overflow-hidden"
+      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]"
       style={{
         backgroundImage: `url(${bgPink})`,
         backgroundSize: "cover",
@@ -179,23 +179,22 @@ const ProjectsSection = () => {
         </FadeIn>
       </div>
 
-      {/* Sticky stacking cards */}
-      <div className="pb-32">
+      {/* Sticky stacking cards — each card occupies a viewport of scroll, all stick to same top */}
+      <div className="relative">
         {projects.map((project, i) => {
           const targetScale = 1 - (totalCards - 1 - i) * 0.03;
           const start = i / totalCards;
           const end = 1;
           return (
-            <div key={project.number} className="h-[85vh]">
-              <ProjectCard
-                project={project}
-                index={i}
-                totalCards={totalCards}
-                progress={scrollYProgress}
-                range={[start, end]}
-                targetScale={targetScale}
-              />
-            </div>
+            <ProjectCard
+              key={project.number}
+              project={project}
+              index={i}
+              totalCards={totalCards}
+              progress={scrollYProgress}
+              range={[start, end]}
+              targetScale={targetScale}
+            />
           );
         })}
       </div>
