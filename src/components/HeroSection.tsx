@@ -1,60 +1,72 @@
 import FadeIn from "./FadeIn";
-import Magnet from "./Magnet";
-import ContactButton from "./ContactButton";
-import jackAvatar from "@/assets/jack-avatar.png";
-import bgGif from "@/assets/background_pic.gif";
+import yaraAvatar from "@/assets/yara-avatar.png";
 
-const navLinks = ["About", "Price", "Projects", "Contact"];
+const navButtons = [
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Education", href: "#education" },
+  { label: "About Me", href: "#about" },
+  { label: "Contact", href: "#contact" },
+];
 
 const HeroSection = () => (
-  <section className="h-screen flex flex-col relative" style={{ overflowX: "clip", backgroundImage: `url(${bgGif})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "repeat" }}>
-    {/* Navbar */}
-    <FadeIn delay={0} y={-20} className="px-6 md:px-10 pt-6 md:pt-8">
-      <nav className="flex justify-between">
-        {navLinks.map((link) => (
-          <a
-            key={link}
-            href={`#${link.toLowerCase()}`}
-            className="text-[#FF85A2] font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
-          >
-            {link}
-          </a>
-        ))}
-      </nav>
+  <section className="min-h-screen flex flex-col items-center justify-center relative px-6 py-16"
+    style={{ background: "linear-gradient(180deg, #FFF0F5 0%, #FFE4EF 40%, #FCD5E6 100%)" }}>
+    
+    {/* Floating decorative circles */}
+    <div className="absolute top-[10%] left-[8%] w-20 h-20 rounded-full bg-pink-200/40 blur-xl animate-pulse" />
+    <div className="absolute top-[20%] right-[12%] w-14 h-14 rounded-full bg-purple-200/30 blur-lg animate-pulse" style={{ animationDelay: "1s" }} />
+    <div className="absolute bottom-[15%] left-[15%] w-16 h-16 rounded-full bg-pink-100/50 blur-xl animate-pulse" style={{ animationDelay: "2s" }} />
+    <div className="absolute bottom-[25%] right-[8%] w-10 h-10 rounded-full bg-purple-100/40 blur-lg animate-pulse" style={{ animationDelay: "0.5s" }} />
+
+    {/* Avatar */}
+    <FadeIn delay={0.1} y={20} className="mb-6">
+      <img
+        src={yaraAvatar}
+        alt="Yara Avatar"
+        width={512}
+        height={512}
+        className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-white/80 shadow-lg"
+      />
     </FadeIn>
 
-    {/* Hero Heading */}
-    <FadeIn delay={0.15} y={40} className="overflow-hidden mt-6 sm:mt-4 md:-mt-5">
-      <h1 className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw] text-center">
-        Hi, i&apos;m jack
+    {/* Main heading */}
+    <FadeIn delay={0.2} y={30}>
+      <h1 className="hero-heading font-black uppercase tracking-tight text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+        Hi, I'm Yara
       </h1>
     </FadeIn>
 
-    {/* Portrait */}
-    <FadeIn delay={0.6} y={30} className="absolute left-1/2 -translate-x-1/2 z-10 top-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px]">
-      <Magnet padding={150} strength={3}>
-        <img
-          src={jackAvatar}
-          alt="Jack 3D Avatar"
-          className="w-full h-auto drop-shadow-2xl"
-        />
-      </Magnet>
+    {/* Subheading */}
+    <FadeIn delay={0.3} y={20}>
+      <p className="mt-3 text-center text-sm sm:text-base md:text-lg font-medium tracking-wide"
+        style={{ color: "#9B6B8A" }}>
+        Computer Science Student &nbsp;|&nbsp; Effat University
+      </p>
     </FadeIn>
 
-    {/* Bottom bar */}
-    <div className="mt-auto flex justify-between items-end pb-7 sm:pb-8 md:pb-10 px-6 md:px-10">
-      <FadeIn delay={0.35} y={20}>
-        <p
-          className="text-[#FF85A2] font-medium uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px] drop-shadow-sm"
-          style={{ fontSize: "clamp(0.75rem, 1.4vw, 1.5rem)" }}
-        >
-          a 3d creator driven by crafting striking and unforgettable projects
-        </p>
-      </FadeIn>
-      <FadeIn delay={0.5} y={20}>
-        <ContactButton />
-      </FadeIn>
-    </div>
+    {/* Description */}
+    <FadeIn delay={0.4} y={20}>
+      <p className="mt-5 text-center max-w-md sm:max-w-lg md:max-w-xl text-sm sm:text-base leading-relaxed font-light"
+        style={{ color: "#7A5A6B" }}>
+        I am a junior Computer Science student at Effat University with a strong interest in Artificial Intelligence. My academic journey has provided me with a strong foundation in programming, problem-solving, and data analysis.
+      </p>
+    </FadeIn>
+
+    {/* Navigation Buttons */}
+    <FadeIn delay={0.55} y={20} className="mt-10">
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+        {navButtons.map((btn) => (
+          <a
+            key={btn.label}
+            href={btn.href}
+            className="nav-pill-btn rounded-full px-6 py-2.5 sm:px-8 sm:py-3 text-xs sm:text-sm font-medium tracking-wide cursor-pointer transition-all duration-300"
+          >
+            {btn.label}
+          </a>
+        ))}
+      </div>
+    </FadeIn>
   </section>
 );
 
