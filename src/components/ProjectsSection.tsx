@@ -52,11 +52,11 @@ const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps
 
   return (
     <div
-      className="sticky top-24 md:top-32 flex items-center justify-center px-4 sm:px-6 md:px-10"
-      style={{ top: `calc(6rem + ${index * 28}px)` }}
+      className="h-screen sticky flex items-center justify-center px-4 sm:px-6 md:px-10"
+      style={{ top: `calc(80px + ${index * 28}px)`, zIndex: index + 1 }}
     >
       <motion.div
-        style={{ scale, willChange: "transform" }}
+        style={{ scale, willChange: "transform", transformOrigin: "top center" }}
         className="relative w-full max-w-[1200px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-white/40 p-4 sm:p-6 md:p-8 overflow-hidden"
       >
         {/* glassmorphism pink background */}
