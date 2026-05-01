@@ -9,7 +9,7 @@ import pixelComputers from "@/assets/about/pixel_computers.png";
 import pinkCursor from "@/assets/about/pink_cursor.png";
 
 const PARAGRAPH =
-  "I am a junior Computer Science student at Effat University with a focus on Artificial Intelligence and programming.\n\nThrough my coursework in data structures, algorithms, software engineering, and machine learning, I have built a strong foundation in problem-solving and logical thinking. I enjoy applying what I learn through projects and continuously developing my technical skills!";
+  "I am Yara Mohammad, a junior Computer Science student at Effat University with a focus on Artificial Intelligence and programming.\n\nThrough my coursework in data structures, algorithms, software engineering, and machine learning, I have built a strong foundation in problem-solving and logical thinking. I enjoy applying what I learn through projects and continuously developing my technical skills!";
 
 const Char = ({ char, progress, range }: { char: string; progress: MotionValue<number>; range: [number, number] }) => {
   const opacity = useTransform(progress, range, [0.2, 1]);
