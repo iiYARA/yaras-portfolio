@@ -26,8 +26,11 @@ const HeroSection = () => (
     {/* Hero Heading */}
     <FadeIn delay={0.15} y={40} className="overflow-hidden mt-6 sm:mt-4 md:-mt-5">
       <h1 className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw] text-center">
-        Hi, i&apos;m jack
+        Hi, i&apos;m yara
       </h1>
+      <p className="text-center text-[#FF85A2] font-medium tracking-wide mt-2 text-sm sm:text-base md:text-lg lg:text-xl drop-shadow-sm">
+        Computer Science Student | Effat University
+      </p>
     </FadeIn>
 
     {/* Portrait */}
@@ -41,20 +44,20 @@ const HeroSection = () => (
       </Magnet>
     </FadeIn>
 
-    {/* Bottom bar */}
-    <div className="mt-auto flex justify-between items-end pb-7 sm:pb-8 md:pb-10 px-6 md:px-10">
-      <FadeIn delay={0.35} y={20}>
-        <p
-          className="text-[#FF85A2] font-medium uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px] drop-shadow-sm"
-          style={{ fontSize: "clamp(0.75rem, 1.4vw, 1.5rem)" }}
-        >
-          a 3d creator driven by crafting striking and unforgettable projects
-        </p>
-      </FadeIn>
-      <FadeIn delay={0.5} y={20}>
-        <ContactButton />
-      </FadeIn>
-    </div>
+    {/* Navigation Buttons */}
+    <FadeIn delay={0.35} y={20} className="mt-auto pb-7 sm:pb-8 md:pb-10 px-6 md:px-10">
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+        {["Projects", "Skills", "Education", "About Me", "Contact"].map((label) => (
+          <a
+            key={label}
+            href={`#${label.toLowerCase().replace(" ", "-")}`}
+            className="liquid-glass-btn rounded-full px-6 py-2.5 sm:px-8 sm:py-3 text-xs sm:text-sm font-medium uppercase tracking-widest text-[#FF85A2] cursor-pointer hover:scale-105 transition-transform duration-200"
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+    </FadeIn>
   </section>
 );
 
