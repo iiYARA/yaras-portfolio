@@ -169,7 +169,7 @@ const ProjectsSection = () => {
             className="font-black uppercase tracking-tight leading-none text-center text-transparent"
             style={{
               fontSize: "clamp(3rem, 12vw, 160px)",
-              WebkitTextStroke: "1.5px #793951",
+              WebkitTextStroke: "1.5px #FFFFFF",
             }}
           >
             Projects
