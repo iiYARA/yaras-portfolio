@@ -1,172 +1,206 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import bgGif from "@/assets/background_pic.gif";
-
-const ACCENT = "#793951";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import FadeIn from "./FadeIn";
+import bgPink from "@/assets/about/pink_radial_bg.png";
 
 type Project = {
-  title: string;
+  number: string;
+  category: string;
+  name: string;
   description: string;
-  tags: string[];
-  href: string;
+  tech: string;
 };
 
-const PROJECTS: Project[] = [
+const projects: Project[] = [
   {
-    title: "Web Development Project",
+    number: "01",
+    category: "Academic",
+    name: "Machine Learning Project",
     description:
-      "A responsive web application built with React and TypeScript, focused on clean architecture and smooth user experiences.",
-    tags: ["React", "TypeScript", "Tailwind"],
-    href: "#",
+      "A project focused on applying machine learning concepts to analyze data and build predictive models based on real datasets.",
+    tech: "Python, Machine Learning, Data Analysis",
   },
   {
-    title: "Mobile App Concept",
+    number: "02",
+    category: "Academic",
+    name: "Web Application Development",
     description:
-      "A concept-driven mobile interface emphasizing accessibility, intuitive navigation, and delightful micro-interactions.",
-    tags: ["UI/UX", "Figma", "Prototype"],
-    href: "#",
+      "A web development project demonstrating responsive design, user interaction, and front-end structure.",
+    tech: "HTML, CSS, JavaScript",
   },
   {
-    title: "Data Visualization Dashboard",
+    number: "03",
+    category: "Academic",
+    name: "Software Engineering Project",
     description:
-      "An interactive dashboard transforming complex datasets into clear, actionable visual insights.",
-    tags: ["D3.js", "Charts", "Analytics"],
-    href: "#",
-  },
-  {
-    title: "AI Powered Tool",
-    description:
-      "An intelligent assistant leveraging modern AI APIs to streamline daily workflows and boost productivity.",
-    tags: ["AI", "Node", "OpenAI"],
-    href: "#",
+      "A structured project applying software engineering concepts including system design, requirements, and implementation.",
+    tech: "Software Engineering, System Design, Programming",
   },
 ];
 
-const ProjectCard = ({
-  project,
-  index,
-  total,
-}: {
+interface CardProps {
   project: Project;
   index: number;
-  total: number;
-}) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  totalCards: number;
+  progress: MotionValue<number>;
+  range: [number, number];
+  targetScale: number;
+}
 
-  // Track this card's own scroll progress: starts when it enters,
-  // ends when the next card has fully covered it.
-  const { scrollYProgress } = useScroll({
-    target: wrapperRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Scale down + drift up slightly as the next card scrolls over it.
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
+const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps) => {
+  const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
     <div
-      ref={wrapperRef}
-      className="sticky top-20 h-screen flex items-center justify-center px-4"
-      style={{ zIndex: index + 1 }}
+      className="sticky top-24 md:top-32 flex items-center justify-center px-4 sm:px-6 md:px-10"
+      style={{ top: `calc(6rem + ${index * 28}px)` }}
     >
-      <motion.article
-        style={{
-          scale,
-          y,
-          willChange: "transform",
-          borderColor: ACCENT,
-          background:
-            "linear-gradient(135deg, rgba(20, 8, 14, 0.92) 0%, rgba(40, 16, 28, 0.92) 100%)",
-          top: `calc(80px + ${index * 14}px)`,
-        }}
-        className="relative w-full max-w-4xl rounded-3xl border-2 backdrop-blur-md p-8 md:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
+      <motion.div
+        style={{ scale, willChange: "transform" }}
+        className="relative w-full max-w-[1200px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#793951] p-4 sm:p-6 md:p-8 overflow-hidden"
       >
-        <div className="flex items-center justify-between mb-6">
-          <span
-            className="text-xs md:text-sm font-semibold tracking-[0.25em] uppercase"
-            style={{ color: ACCENT }}
-          >
-            0{index + 1} / 0{total}
-          </span>
-          <span
-            className="text-xs font-semibold tracking-widest uppercase"
-            style={{ color: ACCENT, opacity: 0.7 }}
-          >
-            {project.tags[0]}
-          </span>
-        </div>
+        {/* glassmorphism pink background */}
+        <div
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(255,200,221,0.55) 0%, rgba(255,182,205,0.35) 50%, rgba(255,220,232,0.5) 100%)",
+            backdropFilter: "blur(24px) saturate(1.4)",
+            WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+          }}
+        />
 
-        <h3
-          className="font-black uppercase tracking-tight leading-[0.95] mb-6"
-          style={{ color: ACCENT, fontSize: "clamp(2rem, 5vw, 3.75rem)" }}
-        >
-          {project.title}
-        </h3>
-
-        <p
-          className="text-base md:text-lg leading-relaxed max-w-2xl mb-8"
-          style={{ color: "#F4D9E2" }}
-        >
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mb-10">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs md:text-sm font-medium px-3 py-1 rounded-full border"
-              style={{ borderColor: `${ACCENT}66`, color: "#F4D9E2" }}
+        {/* Top row */}
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
+          <div className="flex flex-col gap-2 md:gap-3">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <span
+                className="font-black text-[#793951]"
+                style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)" }}
+              >
+                {project.number}
+              </span>
+              <span
+                className="uppercase tracking-[0.25em] text-[#793951]/70 font-semibold text-xs sm:text-sm md:text-base"
+              >
+                {project.category}
+              </span>
+            </div>
+            <h3
+              className="font-bold uppercase text-[#793951] leading-tight"
+              style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}
             >
-              {tag}
-            </span>
-          ))}
+              {project.name}
+            </h3>
+            <p
+              className="text-[#793951]/80 font-medium leading-relaxed max-w-[640px] mt-1 sm:mt-2"
+              style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.05rem)" }}
+            >
+              {project.description}
+            </p>
+            <p className="text-[#793951]/70 font-medium text-xs sm:text-sm md:text-base mt-2">
+              {project.tech}
+            </p>
+          </div>
+
+          <div className="flex-shrink-0 self-start">
+            <button className="rounded-full border border-[#793951] text-[#793951] hover:bg-[rgba(121,57,81,0.1)] transition-colors px-6 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-xs sm:text-sm font-medium uppercase tracking-widest cursor-pointer whitespace-nowrap">
+              View Project
+            </button>
+          </div>
         </div>
 
-        <a
-          href={project.href}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 font-semibold uppercase tracking-widest text-sm transition-colors duration-200"
-          style={{ borderColor: ACCENT, color: ACCENT }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(121, 57, 81, 0.1)")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-        >
-          Live Project
-          <span aria-hidden>→</span>
-        </a>
-      </motion.article>
+        {/* Bottom row: 2 small left, 1 big right */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 mt-6 sm:mt-8 md:mt-10">
+          <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 md:col-span-1">
+            <div
+              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-[#793951]/30"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255,182,205,0.4), rgba(255,220,232,0.25))",
+              }}
+            />
+            <div
+              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-[#793951]/30"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255,220,232,0.35), rgba(255,182,205,0.5))",
+              }}
+            />
+          </div>
+          <div className="md:col-span-2">
+            <div
+              className="rounded-2xl sm:rounded-3xl w-full h-full min-h-[200px] sm:min-h-[260px] md:min-h-[340px] border border-[#793951]/30"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255,200,221,0.45), rgba(255,182,205,0.35))",
+              }}
+            />
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 };
 
-const ProjectsSection = () => (
-  <section
-    id="projects"
-    className="relative"
-    style={{
-      backgroundImage: `url(${bgGif})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "repeat",
-    }}
-  >
-    <div className="pt-16 pb-8 flex justify-center">
-      <h2
-        className="hero-heading font-black uppercase tracking-tight leading-none text-center"
-        style={{ fontSize: "clamp(2.5rem, 9vw, 120px)" }}
-      >
-        Projects
-      </h2>
-    </div>
+const ProjectsSection = () => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
 
-    {/* Each card has its own sticky wrapper — they stack as you scroll */}
-    <div className="relative">
-      {PROJECTS.map((project, i) => (
-        <ProjectCard key={project.title} project={project} index={i} total={PROJECTS.length} />
-      ))}
-    </div>
+  const totalCards = projects.length;
 
-    <div className="h-20" />
-  </section>
-);
+  return (
+    <section
+      id="projects"
+      ref={ref}
+      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] overflow-hidden"
+      style={{
+        backgroundImage: `url(${bgPink})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Heading */}
+      <div className="pt-20 sm:pt-24 md:pt-28 pb-10 sm:pb-14 md:pb-16 px-5 flex justify-center">
+        <FadeIn y={40}>
+          <h2
+            className="font-black uppercase tracking-tight leading-none text-center text-transparent"
+            style={{
+              fontSize: "clamp(3rem, 12vw, 160px)",
+              WebkitTextStroke: "1.5px #D7E2EA",
+            }}
+          >
+            Projects
+          </h2>
+        </FadeIn>
+      </div>
+
+      {/* Sticky stacking cards */}
+      <div className="pb-32">
+        {projects.map((project, i) => {
+          const targetScale = 1 - (totalCards - 1 - i) * 0.03;
+          const start = i / totalCards;
+          const end = 1;
+          return (
+            <div key={project.number} className="h-[85vh]">
+              <ProjectCard
+                project={project}
+                index={i}
+                totalCards={totalCards}
+                progress={scrollYProgress}
+                range={[start, end]}
+                targetScale={targetScale}
+              />
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
 
 export default ProjectsSection;
