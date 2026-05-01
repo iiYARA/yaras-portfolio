@@ -1,40 +1,46 @@
-## Plan: Restyle Projects Section with #793951 Accents
+I’ll update `src/components/ProjectsSection.tsx` to make the sticky cards behave as a tighter overlapping deck, while preserving the requested styling.
 
-Update only visual styling in `src/components/ProjectsSection.tsx`. All animation logic (useScroll, useTransform, sticky positioning, scale formula, offsets, z-index stacking) stays untouched.
+Plan:
 
-### Changes in `src/components/ProjectsSection.tsx`
+1. Keep the existing visual styling
+   - Keep card border as `border-2 border-[#793951]` with the current rounded corners.
+   - Keep project titles as bold, uppercase, `text-[#793951]`.
+   - Keep subtitles/categories as `text-white/80`.
+   - Avoid changing unrelated colors, layout details, content, or surrounding sections.
 
-**1. Card border**
-- Outer card `motion.div`: replace `border-white/40` with `border-[#793951]`. Keep `border-2` and rounded corners.
+2. Tighten the sticky stacking structure
+   - Keep the Projects card scroll track tall at about `360vh`.
+   - Keep each project inside its own sticky wrapper.
+   - Ensure every wrapper/card uses sticky positioning with a top anchor around `80px` / `top-24`.
+   - Preserve z-index layering so later cards render above earlier cards.
 
-**2. Project number + title**
-- Number (`01/02/03`): `text-[#FF85A2]` → `text-[#793951]`.
-- Project name `h3`: `text-[#FFF0F5]` → `text-[#793951]`, add `uppercase`, keep `font-bold`.
+3. Fix the overlap behavior so cards do not read as a normal vertical list
+   - Reduce the visual gap inside each sticky wrapper so the next card slides up over the previous card instead of appearing separated.
+   - Keep progressive top offsets in the 20–30px range for depth, but avoid creating large spacing between cards.
+   - Ensure previous cards remain partially visible behind the active card.
 
-**3. Description & tech (readability on pink)**
-- Description: `text-[#D7E2EA]` → `text-[#793951]/80`.
-- Tech line: `text-[#FFB6C1]` → `text-[#793951]/70`.
-- Category label: `text-[#D7E2EA]/90` → `text-[#793951]/70`.
+4. Restore active motion for older cards
+   - Use `useScroll`, `useTransform`, and `motion.div` as required.
+   - Set each card’s scale transform based on scroll progress.
+   - Add a slight upward `y` transform for previous cards as newer cards take over, instead of leaving `targetY` at `0`.
+   - Keep `willChange: "transform"` and smooth transform transitions for performance.
 
-**4. "View Project" button**
-- Replace `liquid-glass-btn` styling with:
-  - `border border-[#793951] text-[#793951]`
-  - `hover:bg-[rgba(121,57,81,0.1)] transition-colors`
-  - Keep `rounded-full`, padding, `uppercase tracking-widest`, sizing.
+Technical details:
 
-**5. Card background**
-- Keep existing soft pink glassmorphism (already matches About section). Provides strong contrast with `#793951`.
+```text
+Projects section
+└── tall scroll track, around 360vh
+    ├── sticky wrapper card 1, z-index 1, top ~80px
+    │   └── motion card scales down / moves up
+    ├── sticky wrapper card 2, z-index 2, top ~104px
+    │   └── motion card slides over card 1
+    └── sticky wrapper card 3, z-index 3, top ~128px
+        └── motion card slides over card 2
+```
 
-**6. Image placeholder tiles**
-- `border-white/30` → `border-[#793951]/30` on the three inner placeholder divs for visual cohesion.
-
-### What does NOT change
-- `useScroll` / `useTransform` setup and offsets `["start start", "end end"]`.
-- Sticky positioning `sticky top-24 md:top-32` and per-card `top: calc(6rem + ${index * 28}px)`.
-- Scale formula `targetScale = 1 - (totalCards - 1 - i) * 0.03`.
-- `h-[85vh]` containers and z-index stacking order.
-- Section pink radial background, heading style, FadeIn wrapping.
-- `src/pages/Index.tsx` integration.
-
-### Files touched
-- `src/components/ProjectsSection.tsx` (styling only)
+Expected result:
+- Card 1 appears first and sticks.
+- Card 2 scrolls upward over Card 1.
+- Card 1 scales down and shifts slightly upward behind Card 2.
+- Card 3 scrolls upward over Card 2.
+- The section looks like a stacked deck of overlapping sticky cards, not a separated list.

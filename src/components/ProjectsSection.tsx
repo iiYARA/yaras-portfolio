@@ -52,9 +52,9 @@ const ProjectCard = ({ project, progress, range, targetScale, targetY }: CardPro
   const y = useTransform(progress, range, [0, targetY]);
 
   return (
-    <div className="flex h-full items-start justify-center px-4 sm:px-6 md:px-10 pt-4 md:pt-6">
+    <div className="flex h-full items-start justify-center px-4 sm:px-6 md:px-10">
       <motion.div
-        style={{ scale, y, willChange: "transform" }}
+        style={{ scale, y, willChange: "transform", transformOrigin: "top center" }}
         className="relative w-full max-w-[1200px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#793951] p-4 sm:p-6 md:p-8 overflow-hidden"
       >
         {/* glassmorphism pink background */}
@@ -177,20 +177,24 @@ const ProjectsSection = () => {
         </FadeIn>
       </div>
 
-      {/* Sticky stacking cards */}
+      {/* Sticky stacking cards — overlapping deck */}
       <div className="relative h-[360vh] pb-32">
         {projects.map((project, i) => {
-          const targetScale = 1 - (totalCards - 1 - i) * 0.03;
-          const targetY = 0;
+          // Each subsequent card scales the previous down a bit and lifts it up
+          const targetScale = 1 - (totalCards - i) * 0.05;
+          const targetY = -(totalCards - i) * 12;
           const start = i / totalCards;
-          const end = Math.min(start + 1 / totalCards, 1);
+          const end = 1;
           return (
             <div
               key={project.number}
-              className="sticky h-screen"
+              className="sticky"
               style={{
                 zIndex: i + 1,
                 top: `calc(80px + ${i * 24}px)`,
+                // Negative margin pulls the next card up so they overlap
+                // instead of stacking as a normal vertical list.
+                marginTop: i === 0 ? 0 : "-70vh",
               }}
             >
               <ProjectCard
