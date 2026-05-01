@@ -43,7 +43,6 @@ const HeroSection = () => (
         />
       </Magnet>
     </FadeIn>
-    </FadeIn>
 
   </section>
 );
