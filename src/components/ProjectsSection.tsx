@@ -1,15 +1,15 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import FadeIn from "./FadeIn";
 import bgPink from "@/assets/about/pink_radial_bg.png";
 
-type Project = {
+interface Project {
   number: string;
   category: string;
   name: string;
   description: string;
   tech: string;
-};
+}
 
 const projects: Project[] = [
   {
@@ -38,103 +38,110 @@ const projects: Project[] = [
   },
 ];
 
+const placeholderTile = (seed: number) => {
+  const palettes = [
+    ["#FFD6E4", "#FFB6C1"],
+    ["#FFC2D4", "#FF99B5"],
+    ["#FFE0EC", "#FFADC4"],
+    ["#FFCAD9", "#FF8FAE"],
+  ];
+  const [a, b] = palettes[seed % palettes.length];
+  return `linear-gradient(135deg, ${a} 0%, ${b} 100%)`;
+};
+
 interface CardProps {
   project: Project;
   index: number;
   totalCards: number;
-  progress: MotionValue<number>;
+  scrollProgress: ReturnType<typeof useScroll>["scrollYProgress"];
   range: [number, number];
   targetScale: number;
 }
 
-const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps) => {
-  const scale = useTransform(progress, range, [1, targetScale]);
+const ProjectCard = ({ project, index, totalCards, scrollProgress, range, targetScale }: CardProps) => {
+  const scale = useTransform(scrollProgress, range, [1, targetScale]);
 
   return (
     <div
-      className="sticky top-24 md:top-32 flex items-center justify-center px-4 sm:px-6 md:px-10"
+      className="sticky top-24 md:top-32 flex items-center justify-center px-4 sm:px-6 md:px-8"
       style={{ top: `calc(6rem + ${index * 28}px)` }}
     >
       <motion.div
-        style={{ scale, willChange: "transform" }}
-        className="relative w-full max-w-[1200px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-white/40 p-4 sm:p-6 md:p-8 overflow-hidden"
+        style={{ scale }}
+        className="w-full max-w-6xl rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-white/40 p-4 sm:p-6 md:p-8 shadow-[0_20px_60px_-20px_rgba(255,133,162,0.4)]"
       >
-        {/* glassmorphism pink background */}
+        {/* Glassmorphism layered bg */}
         <div
-          className="absolute inset-0 -z-10"
+          className="absolute inset-0 rounded-[inherit] -z-10"
           style={{
             background:
-              "linear-gradient(135deg, rgba(255,200,221,0.55) 0%, rgba(255,182,205,0.35) 50%, rgba(255,220,232,0.5) 100%)",
+              "linear-gradient(135deg, rgba(255,214,228,0.55) 0%, rgba(255,182,205,0.45) 100%)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+          }}
+        />
+        <div
+          className="relative rounded-[32px] sm:rounded-[40px] md:rounded-[50px] p-5 sm:p-7 md:p-10"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(255,225,235,0.7) 0%, rgba(255,200,221,0.5) 100%)",
             backdropFilter: "blur(24px) saturate(1.4)",
             WebkitBackdropFilter: "blur(24px) saturate(1.4)",
           }}
-        />
-
-        {/* Top row */}
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
-          <div className="flex flex-col gap-2 md:gap-3">
-            <div className="flex items-center gap-3 sm:gap-4">
-              <span
-                className="font-black text-[#FF85A2]"
-                style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)" }}
+        >
+          {/* Top row */}
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
+            <div className="flex-1">
+              <div className="flex items-baseline gap-4 sm:gap-6 mb-3 sm:mb-4">
+                <span
+                  className="font-black text-transparent leading-none"
+                  style={{
+                    fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                    WebkitTextStroke: "1.5px #FF85A2",
+                  }}
+                >
+                  {project.number}
+                </span>
+                <span className="text-[#FF85A2] uppercase tracking-[0.3em] text-xs sm:text-sm font-semibold">
+                  {project.category}
+                </span>
+              </div>
+              <h3
+                className="font-black text-[#7a3a52] leading-tight mb-3 sm:mb-4"
+                style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}
               >
-                {project.number}
-              </span>
-              <span
-                className="uppercase tracking-[0.25em] text-[#D7E2EA]/90 font-semibold text-xs sm:text-sm md:text-base"
-              >
-                {project.category}
-              </span>
+                {project.name}
+              </h3>
+              <p className="text-[#8a4a62] text-sm sm:text-base md:text-lg leading-relaxed max-w-xl mb-3">
+                {project.description}
+              </p>
+              <p className="text-[#FF85A2] text-xs sm:text-sm font-medium uppercase tracking-wider">
+                {project.tech}
+              </p>
             </div>
-            <h3
-              className="font-bold text-[#FFF0F5] leading-tight"
-              style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}
-            >
-              {project.name}
-            </h3>
-            <p
-              className="text-[#D7E2EA] font-medium leading-relaxed max-w-[640px] mt-1 sm:mt-2"
-              style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.05rem)" }}
-            >
-              {project.description}
-            </p>
-            <p className="text-[#FFB6C1] font-medium text-xs sm:text-sm md:text-base mt-2">
-              {project.tech}
-            </p>
+
+            <div className="flex-shrink-0">
+              <button className="liquid-glass-btn rounded-full px-6 py-3 sm:px-8 sm:py-3.5 text-xs sm:text-sm font-medium uppercase tracking-widest text-[#7a3a52] hover:scale-105 transition-transform">
+                View Project
+              </button>
+            </div>
           </div>
 
-          <div className="flex-shrink-0 self-start">
-            <button className="liquid-glass-btn rounded-full px-6 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-xs sm:text-sm font-medium uppercase tracking-widest text-[#D7E2EA] cursor-pointer whitespace-nowrap">
-              View Project
-            </button>
-          </div>
-        </div>
-
-        {/* Bottom row: 2 small left, 1 big right */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 mt-6 sm:mt-8 md:mt-10">
-          <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 md:col-span-1">
+          {/* Bottom row: 2 small left + 1 big right */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 mt-6 sm:mt-8">
+            <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 md:col-span-1">
+              <div
+                className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-white/50 shadow-inner"
+                style={{ background: placeholderTile(index * 3) }}
+              />
+              <div
+                className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-white/50 shadow-inner"
+                style={{ background: placeholderTile(index * 3 + 1) }}
+              />
+            </div>
             <div
-              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-white/30"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(255,182,205,0.4), rgba(255,220,232,0.25))",
-              }}
-            />
-            <div
-              className="rounded-2xl sm:rounded-3xl aspect-[4/3] border border-white/30"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(255,220,232,0.35), rgba(255,182,205,0.5))",
-              }}
-            />
-          </div>
-          <div className="md:col-span-2">
-            <div
-              className="rounded-2xl sm:rounded-3xl w-full h-full min-h-[200px] sm:min-h-[260px] md:min-h-[340px] border border-white/30"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(255,200,221,0.45), rgba(255,182,205,0.35))",
-              }}
+              className="rounded-2xl sm:rounded-3xl border border-white/50 shadow-inner md:col-span-2 min-h-[240px] md:min-h-full"
+              style={{ background: placeholderTile(index * 3 + 2) }}
             />
           </div>
         </div>
@@ -144,9 +151,9 @@ const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps
 };
 
 const ProjectsSection = () => {
-  const ref = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: containerRef,
     offset: ["start start", "end end"],
   });
 
@@ -155,7 +162,7 @@ const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      ref={ref}
+      ref={containerRef}
       className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] overflow-hidden"
       style={{
         backgroundImage: `url(${bgPink})`,
@@ -164,8 +171,7 @@ const ProjectsSection = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Heading */}
-      <div className="pt-20 sm:pt-24 md:pt-28 pb-10 sm:pb-14 md:pb-16 px-5 flex justify-center">
+      <div className="pt-20 sm:pt-24 md:pt-28 pb-10 px-5 sm:px-8 md:px-10">
         <FadeIn y={40}>
           <h2
             className="font-black uppercase tracking-tight leading-none text-center text-transparent"
@@ -179,19 +185,18 @@ const ProjectsSection = () => {
         </FadeIn>
       </div>
 
-      {/* Sticky stacking cards */}
-      <div className="pb-32">
-        {projects.map((project, i) => {
-          const targetScale = 1 - (totalCards - 1 - i) * 0.03;
-          const start = i / totalCards;
+      <div>
+        {projects.map((project, index) => {
+          const targetScale = 1 - (totalCards - 1 - index) * 0.03;
+          const start = index / totalCards;
           const end = 1;
           return (
             <div key={project.number} className="h-[85vh]">
               <ProjectCard
                 project={project}
-                index={i}
+                index={index}
                 totalCards={totalCards}
-                progress={scrollYProgress}
+                scrollProgress={scrollYProgress}
                 range={[start, end]}
                 targetScale={targetScale}
               />
@@ -199,6 +204,8 @@ const ProjectsSection = () => {
           );
         })}
       </div>
+
+      <div className="h-32" />
     </section>
   );
 };
