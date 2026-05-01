@@ -46,7 +46,5 @@ const HeroSection = () => (
 
   </section>
 );
-  </section>
-);
 
 export default HeroSection;
