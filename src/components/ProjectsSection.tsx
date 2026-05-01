@@ -156,7 +156,7 @@ const ProjectsSection = () => {
     <section
       id="projects"
       ref={ref}
-      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] overflow-hidden"
+      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]"
       style={{
         backgroundImage: `url(${bgPink})`,
         backgroundSize: "cover",
@@ -179,23 +179,22 @@ const ProjectsSection = () => {
         </FadeIn>
       </div>
 
-      {/* Sticky stacking cards */}
-      <div className="pb-32">
+      {/* Sticky stacking cards — each card occupies a viewport of scroll, all stick to same top */}
+      <div className="relative">
         {projects.map((project, i) => {
           const targetScale = 1 - (totalCards - 1 - i) * 0.03;
           const start = i / totalCards;
           const end = 1;
           return (
-            <div key={project.number} className="h-[85vh]">
-              <ProjectCard
-                project={project}
-                index={i}
-                totalCards={totalCards}
-                progress={scrollYProgress}
-                range={[start, end]}
-                targetScale={targetScale}
-              />
-            </div>
+            <ProjectCard
+              key={project.number}
+              project={project}
+              index={i}
+              totalCards={totalCards}
+              progress={scrollYProgress}
+              range={[start, end]}
+              targetScale={targetScale}
+            />
           );
         })}
       </div>
