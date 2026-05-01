@@ -15,7 +15,7 @@ const HeroSection = () => (
           <a
             key={link}
             href={`#${link.toLowerCase()}`}
-            className="text-[#1a0a2e] font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
+            className="text-[#7b2ff7] font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
           >
             {link}
           </a>
@@ -45,7 +45,7 @@ const HeroSection = () => (
     <div className="mt-auto flex justify-between items-end pb-7 sm:pb-8 md:pb-10 px-6 md:px-10">
       <FadeIn delay={0.35} y={20}>
         <p
-          className="text-[#1a0a2e] font-medium uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px] drop-shadow-sm"
+          className="text-[#7b2ff7] font-medium uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px] drop-shadow-sm"
           style={{ fontSize: "clamp(0.75rem, 1.4vw, 1.5rem)" }}
         >
           a 3d creator driven by crafting striking and unforgettable projects
