@@ -41,22 +41,20 @@ const projects: Project[] = [
 interface CardProps {
   project: Project;
   index: number;
-  totalCards: number;
   progress: MotionValue<number>;
   range: [number, number];
   targetScale: number;
+  targetY: number;
 }
 
-const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps) => {
+const ProjectCard = ({ project, progress, range, targetScale, targetY }: CardProps) => {
   const scale = useTransform(progress, range, [1, targetScale]);
+  const y = useTransform(progress, range, [0, targetY]);
 
   return (
-    <div
-      className="sticky top-24 md:top-32 flex items-center justify-center px-4 sm:px-6 md:px-10"
-      style={{ top: `calc(6rem + ${index * 28}px)` }}
-    >
+    <div className="flex h-full items-start justify-center px-4 sm:px-6 md:px-10 pt-4 md:pt-6">
       <motion.div
-        style={{ scale, willChange: "transform" }}
+        style={{ scale, y, willChange: "transform" }}
         className="relative w-full max-w-[1200px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#793951] p-4 sm:p-6 md:p-8 overflow-hidden"
       >
         {/* glassmorphism pink background */}
@@ -144,7 +142,7 @@ const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps
 };
 
 const ProjectsSection = () => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
@@ -180,20 +178,25 @@ const ProjectsSection = () => {
       </div>
 
       {/* Sticky stacking cards */}
-      <div className="pb-32">
+      <div ref={ref} className="relative h-[360vh] pb-32">
         {projects.map((project, i) => {
           const targetScale = 1 - (totalCards - 1 - i) * 0.03;
+          const targetY = -(totalCards - 1 - i) * 18;
           const start = i / totalCards;
-          const end = 1;
+          const end = Math.min(start + 1 / totalCards, 1);
           return (
-            <div key={project.number} className="h-[85vh]">
+            <div
+              key={project.number}
+              className="sticky top-24 h-screen"
+              style={{ zIndex: i + 1 }}
+            >
               <ProjectCard
                 project={project}
                 index={i}
-                totalCards={totalCards}
                 progress={scrollYProgress}
                 range={[start, end]}
                 targetScale={targetScale}
+                targetY={targetY}
               />
             </div>
           );
