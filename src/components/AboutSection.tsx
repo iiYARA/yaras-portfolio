@@ -60,14 +60,14 @@ const AboutSection = () => (
       <img src={pixelComputers} alt="" className="w-[120px] sm:w-[160px] md:w-[210px] h-auto" />
     </FadeIn>
 
-    {/* Bottom-left (swapped: now pinkCursor) */}
+    {/* Bottom-left */}
     <FadeIn delay={0.25} x={-80} y={0} duration={0.9} className="absolute bottom-[8%] left-[3%] sm:left-[6%] md:left-[10%] pointer-events-none">
-      <img src={pinkCursor} alt="" className="w-[100px] sm:w-[140px] md:w-[180px] h-auto" />
+      <img src={keepCoding} alt="" className="w-[130px] sm:w-[170px] md:w-[220px] h-auto" />
     </FadeIn>
 
-    {/* Bottom-right (swapped: now keepCoding) */}
+    {/* Bottom-right */}
     <FadeIn delay={0.3} x={80} y={0} duration={0.9} className="absolute bottom-[8%] right-[3%] sm:right-[6%] md:right-[10%] pointer-events-none">
-      <img src={keepCoding} alt="" className="w-[130px] sm:w-[170px] md:w-[220px] h-auto" />
+      <img src={pinkCursor} alt="" className="w-[100px] sm:w-[140px] md:w-[180px] h-auto" />
     </FadeIn>
 
     {/* Heading + paragraph */}
