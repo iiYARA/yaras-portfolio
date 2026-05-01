@@ -35,29 +35,15 @@ const HeroSection = () => (
 
     {/* Portrait */}
     <FadeIn delay={0.6} y={30} className="absolute left-1/2 -translate-x-1/2 z-10 top-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px]">
-      <Magnet padding={150} strength={3}>
+      <Magnet padding={200} strength={2}>
         <img
           src={jackAvatar}
           alt="Yara 3D Avatar"
-          className="w-full h-auto drop-shadow-2xl"
+          className="w-full h-auto drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
         />
       </Magnet>
     </FadeIn>
 
-    {/* Navigation Buttons */}
-    <FadeIn delay={0.35} y={20} className="mt-auto pb-7 sm:pb-8 md:pb-10 px-6 md:px-10">
-      <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-        {["Projects", "Skills", "Education", "About Me", "Contact"].map((label) => (
-          <a
-            key={label}
-            href={`#${label.toLowerCase().replace(" ", "-")}`}
-            className="liquid-glass-btn rounded-full px-6 py-2.5 sm:px-8 sm:py-3 text-xs sm:text-sm font-medium uppercase tracking-widest text-[#FF85A2] cursor-pointer hover:scale-105 transition-transform duration-200"
-          >
-            {label}
-          </a>
-        ))}
-      </div>
-    </FadeIn>
   </section>
 );
 
