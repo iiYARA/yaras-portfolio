@@ -57,7 +57,7 @@ const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps
     >
       <motion.div
         style={{ scale, willChange: "transform" }}
-        className="relative w-full max-w-[1200px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-white/40 p-4 sm:p-6 md:p-8 overflow-hidden"
+        className="relative w-full max-w-[1200px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#793951] p-4 sm:p-6 md:p-8 overflow-hidden"
       >
         {/* glassmorphism pink background */}
         <div
@@ -75,36 +75,36 @@ const ProjectCard = ({ project, index, progress, range, targetScale }: CardProps
           <div className="flex flex-col gap-2 md:gap-3">
             <div className="flex items-center gap-3 sm:gap-4">
               <span
-                className="font-black text-[#FF85A2]"
+                className="font-black text-[#793951]"
                 style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)" }}
               >
                 {project.number}
               </span>
               <span
-                className="uppercase tracking-[0.25em] text-[#D7E2EA]/90 font-semibold text-xs sm:text-sm md:text-base"
+                className="uppercase tracking-[0.25em] text-[#793951]/70 font-semibold text-xs sm:text-sm md:text-base"
               >
                 {project.category}
               </span>
             </div>
             <h3
-              className="font-bold text-[#FFF0F5] leading-tight"
+              className="font-bold uppercase text-[#793951] leading-tight"
               style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}
             >
               {project.name}
             </h3>
             <p
-              className="text-[#D7E2EA] font-medium leading-relaxed max-w-[640px] mt-1 sm:mt-2"
+              className="text-[#793951]/80 font-medium leading-relaxed max-w-[640px] mt-1 sm:mt-2"
               style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.05rem)" }}
             >
               {project.description}
             </p>
-            <p className="text-[#FFB6C1] font-medium text-xs sm:text-sm md:text-base mt-2">
+            <p className="text-[#793951]/70 font-medium text-xs sm:text-sm md:text-base mt-2">
               {project.tech}
             </p>
           </div>
 
           <div className="flex-shrink-0 self-start">
-            <button className="liquid-glass-btn rounded-full px-6 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-xs sm:text-sm font-medium uppercase tracking-widest text-[#D7E2EA] cursor-pointer whitespace-nowrap">
+            <button className="rounded-full border border-[#793951] text-[#793951] hover:bg-[rgba(121,57,81,0.1)] transition-colors px-6 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-xs sm:text-sm font-medium uppercase tracking-widest cursor-pointer whitespace-nowrap">
               View Project
             </button>
           </div>
