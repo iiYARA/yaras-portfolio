@@ -4,7 +4,7 @@ import ContactButton from "./ContactButton";
 import jackAvatar from "@/assets/jack-avatar.png";
 import bgGif from "@/assets/background_pic.gif";
 
-const navLinks = ["Projects", "Skills", "Education", "About Me"];
+const navLinks = ["About Me", "Education", "Projects", "Skills"];
 
 const HeroSection = () => (
   <section className="h-screen flex flex-col relative" style={{ overflowX: "clip", backgroundImage: `url(${bgGif})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "repeat" }}>
