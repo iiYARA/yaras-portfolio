@@ -2,11 +2,12 @@ import FadeIn from "./FadeIn";
 import Magnet from "./Magnet";
 import ContactButton from "./ContactButton";
 import jackAvatar from "@/assets/jack-avatar.png";
+import bgGif from "@/assets/background_pic.gif";
 
 const navLinks = ["About", "Price", "Projects", "Contact"];
 
 const HeroSection = () => (
-  <section className="h-screen flex flex-col relative" style={{ overflowX: "clip" }}>
+  <section className="h-screen flex flex-col relative" style={{ overflowX: "clip", backgroundImage: `url(${bgGif})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "repeat" }}>
     {/* Navbar */}
     <FadeIn delay={0} y={-20} className="px-6 md:px-10 pt-6 md:pt-8">
       <nav className="flex justify-between">
