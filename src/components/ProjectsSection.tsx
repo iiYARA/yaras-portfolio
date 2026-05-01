@@ -42,14 +42,15 @@ interface CardProps {
   project: Project;
   index: number;
   progress: MotionValue<number>;
-  range: [number, number];
+  scaleRange: [number, number];
+  yRange: [number, number];
   targetScale: number;
   targetY: number;
 }
 
-const ProjectCard = ({ project, progress, range, targetScale, targetY }: CardProps) => {
-  const scale = useTransform(progress, range, [1, targetScale]);
-  const y = useTransform(progress, range, [0, targetY]);
+const ProjectCard = ({ project, progress, scaleRange, yRange, targetScale, targetY }: CardProps) => {
+  const scale = useTransform(progress, scaleRange, [1, targetScale]);
+  const y = useTransform(progress, yRange, [120, targetY]);
 
   return (
     <div className="flex h-full items-start justify-center px-4 sm:px-6 md:px-10 pt-4 md:pt-6">
@@ -178,23 +179,26 @@ const ProjectsSection = () => {
       </div>
 
       {/* Sticky stacking cards */}
-      <div ref={ref} className="relative h-[360vh] pb-32">
+      <div ref={ref} className="relative h-[360vh]">
         {projects.map((project, i) => {
           const targetScale = 1 - (totalCards - 1 - i) * 0.03;
           const targetY = -(totalCards - 1 - i) * 18;
-          const start = i / totalCards;
-          const end = Math.min(start + 1 / totalCards, 1);
+          const scaleStart = Math.min((i + 1) / totalCards, 1);
+          const scaleEnd = Math.min(scaleStart + 0.22, 1);
+          const yStart = Math.max(i / totalCards - 0.18, 0);
+          const yEnd = Math.min(i / totalCards + 0.18, 1);
           return (
             <div
               key={project.number}
-              className="sticky top-24 h-screen"
+              className="sticky top-24 -mt-[100vh] flex h-screen items-start justify-center first:mt-0"
               style={{ zIndex: i + 1 }}
             >
               <ProjectCard
                 project={project}
                 index={i}
                 progress={scrollYProgress}
-                range={[start, end]}
+                scaleRange={[scaleStart, scaleEnd]}
+                yRange={[yStart, yEnd]}
                 targetScale={targetScale}
                 targetY={targetY}
               />
