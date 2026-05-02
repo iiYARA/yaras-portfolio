@@ -157,9 +157,9 @@ const ProjectsSection = () => {
       className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]"
       style={{
         backgroundImage: `url(${bgPink})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% auto",
+        backgroundPosition: "top center",
+        backgroundRepeat: "repeat-y",
       }}
     >
       {/* Heading */}

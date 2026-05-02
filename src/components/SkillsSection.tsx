@@ -47,13 +47,7 @@ const SkillsSection = () => {
   return (
     <section
       id="skills"
-      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] py-20 sm:py-24 md:py-28 px-5"
-      style={{
-        backgroundImage: `url(${bgPink})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
+      className="relative z-10 py-16 sm:py-20 md:py-24 px-5"
     >
       <div className="max-w-[1200px] mx-auto">
         {/* Heading */}
