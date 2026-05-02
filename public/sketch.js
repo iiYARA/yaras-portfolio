@@ -124,12 +124,13 @@ function initSketch() {
       cnv.style("display", "block");
       cnv.style("max-width", "100%");
       cnv.style("height", "auto");
+      cnv.style("background", "transparent");
 
       p.textAlign(p.CENTER, p.CENTER);
       p.textFont("Doto");
       p.colorMode(p.RGB, 255, 255, 255, 255);
 
-      celestialColors = [p.color("#FA36A3"), p.color("#6FB5B6"), p.color("#D92731")];
+      celestialColors = [p.color("#793951"), p.color("#9B5C77"), p.color("#C08AA3")];
 
       oscillator = new p5.Oscillator("square");
       oscillator.amp(0);
