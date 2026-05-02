@@ -54,7 +54,7 @@ export default function MusicSketch() {
           marginBottom: "12px",
         }}
       >
-        Designing harmony, one pixel at a time.
+        When Computers Learned to Sing
       </h2>
 
       <p
@@ -62,9 +62,13 @@ export default function MusicSketch() {
           color: "rgba(255,255,255,0.65)",
           fontSize: "clamp(0.95rem, 1.3vw, 1.15rem)",
           marginBottom: "48px",
+          maxWidth: "800px",
+          margin: "0 auto 48px",
+          whiteSpace: "pre-line",
         }}
       >
-        Play a song that holds a special place in my heart
+        In 1961, the IBM 7094 performed “Daisy Bell” for the first time,{"\n"} 
+        transforming a simple tune into one of the earliest moments when technology began to feel almost alive.
       </p>
 
       <div
