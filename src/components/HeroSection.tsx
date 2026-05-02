@@ -46,7 +46,7 @@ const HeroSection = () => {
               <a
                 key={link}
                 href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
-                className="text-[#FF85A2] font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
+                className="text-gradient-rose font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
               >
                 {link}
               </a>
