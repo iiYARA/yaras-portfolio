@@ -17,7 +17,7 @@ const Index = () => (
       <AboutSection />
     </motion.div>
     <div
-      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] overflow-hidden"
+      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]"
       style={{
         backgroundImage: `url(${bgPink})`,
         backgroundSize: "100% auto",
