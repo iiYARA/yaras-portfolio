@@ -49,11 +49,11 @@ const HeroSection = () => {
           <nav className="flex justify-between">
             {navLinks.map((link) => (
               <a
-                key={link}
-                href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
+                key={link.label}
+                href={link.href}
                 className="text-gradient-rose font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
               >
-                {link}
+                {link.label}
               </a>
             ))}
           </nav>
