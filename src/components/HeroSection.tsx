@@ -5,7 +5,7 @@ import Magnet from "./Magnet";
 import jackAvatar from "@/assets/jack-avatar.png";
 import bgGif from "@/assets/background_pic.gif";
 
-const navLinks = ["about me", "education", "projects", "skills"];
+const navLinks = ["About Me", "Education", "Projects", "Skills"];
 
 const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -46,7 +46,7 @@ const HeroSection = () => {
               <a
                 key={link}
                 href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
-                className="text-gradient-rose font-semibold tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
+                className="text-gradient-rose font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
               >
                 {link}
               </a>
