@@ -3,10 +3,9 @@ import p5 from "p5";
 
 export default function MusicSketch() {
   useEffect(() => {
+    let audioCtx: AudioContext | null = null;
     const sketch = (p: any) => {
-      let oscillator;
       let playing = false;
-      let currentNote = -1;
       let tempoMultiplier = 300;
 
       const melody = [
@@ -46,9 +45,6 @@ export default function MusicSketch() {
         const canvas = p.createCanvas(1000, 500);
         canvas.parent("sketch-container");
 
-        oscillator = new p5.Oscillator("square");
-        oscillator.amp(0);
-
         for (let i = 0; i < 60; i++) {
           notes.push({
             x: p.random(p.width),
@@ -80,34 +76,33 @@ export default function MusicSketch() {
       };
 
       function playNote(i: number) {
-        if (i >= melody.length) {
-          oscillator.amp(0, 0.2);
-          return;
-        }
-
-        let n = melody[i];
-        oscillator.freq(noteFreq[n.note]);
-        oscillator.amp(0.3, 0.05);
-
-        setTimeout(
-          () => {
-            oscillator.amp(0, 0.05);
-          },
-          n.dur * tempoMultiplier - 50,
-        );
-
+        if (!audioCtx || i >= melody.length) return;
+        const n = melody[i];
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "square";
+        osc.frequency.value = noteFreq[n.note];
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        const now = audioCtx.currentTime;
+        const dur = (n.dur * tempoMultiplier) / 1000;
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.3, now + 0.02);
+        gain.gain.linearRampToValueAtTime(0, now + dur - 0.02);
+        osc.start(now);
+        osc.stop(now + dur);
         setTimeout(() => playNote(i + 1), n.dur * tempoMultiplier);
       }
 
       p.mousePressed = () => {
-        if (p.getAudioContext().state !== "running") {
-          p.getAudioContext().resume();
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
         }
-
+        if (audioCtx.state !== "running") audioCtx.resume();
         if (!playing) {
-          oscillator.start();
           playing = true;
           playNote(0);
+          setTimeout(() => { playing = false; }, melody.reduce((s, n) => s + n.dur, 0) * tempoMultiplier);
         }
       };
     };
