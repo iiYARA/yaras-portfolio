@@ -10,12 +10,12 @@ type Item = {
 const items: Item[] = [
   {
     title: "High School Diploma",
-    subtitle: "2018 – 2022 | Dar Al Bushra Private Schools",
+    subtitle: "Dar Al Bushra Private Schools\n2018 – 2022",
     side: "left",
   },
   {
     title: "Bachelor's in Computer Science",
-    subtitle: "2022 – Present | Effat University",
+    subtitle: "Effat University\n2022 – Present",
     side: "right",
   },
 ];
@@ -40,7 +40,7 @@ const Card = ({ title, subtitle }: { title: string; subtitle: string }) => (
       {title}
     </h3>
     <p
-      className="font-medium text-[#793951]/80"
+      className="font-medium text-[#793951]/80 whitespace-pre-line"
       style={{ fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)" }}
     >
       {subtitle}
