@@ -7,7 +7,6 @@ import bgGif from "@/assets/background_pic.gif";
 
 const navLinks = [
   { label: "About Me", href: "#about-me" },
-  { label: "Project", href: "#projects" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
 ];
