@@ -9,7 +9,6 @@ function initSketch() {
     let animationTimer = 0;
     let lastHoveredIndex = -1;
 
-    // max-w-7xl = 1280px
     const MAX_WIDTH = 1280;
     const MAX_HEIGHT = 600;
 
@@ -106,17 +105,20 @@ function initSketch() {
       "•",
       ".",
     ];
+
     let celestialColors = [];
 
     function getContainerWidth() {
       let container = document.getElementById("sketch-container");
       let rect = container ? container.getBoundingClientRect() : { width: p.windowWidth };
+
       return Math.min(Math.floor(rect.width) || p.windowWidth, MAX_WIDTH);
     }
 
     p.setup = function () {
       let w = getContainerWidth();
       let isMobile = w < 600;
+
       let canvasHeight = Math.min(isMobile ? p.windowHeight * 0.75 : p.windowHeight * 0.6, MAX_HEIGHT);
 
       let cnv = p.createCanvas(w, canvasHeight);
@@ -129,7 +131,7 @@ function initSketch() {
       p.textFont("Doto");
       p.colorMode(p.RGB, 255, 255, 255, 255);
 
-      celestialColors = [p.color("#FA36A3"), p.color("#6FB5B6"), p.color("#D92731")];
+      celestialColors = [p.color("#C08AA3"), p.color("#E6B7C8"), p.color("#FFFFFF")];
 
       oscillator = new p5.Oscillator("square");
       oscillator.amp(0);
@@ -166,11 +168,13 @@ function initSketch() {
 
       for (let n of melody) {
         let noteW = 30 + n.dur * 3;
+
         if (currentX + noteW > maxLineWidth) {
           currentRow++;
           rows[currentRow] = [];
           currentX = 0;
         }
+
         rows[currentRow].push({ noteRef: n, width: noteW });
         currentX += noteW;
       }
@@ -181,6 +185,7 @@ function initSketch() {
       let topPadding = 64;
       let bottomPadding = 40;
       const mobileHeight = p.height - topPadding - bottomPadding;
+
       if (contentHeight > mobileHeight) {
         rowHeight = mobileHeight / rows.length;
       } else {
@@ -189,6 +194,7 @@ function initSketch() {
       }
 
       let y = topPadding;
+
       for (let i = 0; i < rows.length; i++) {
         let totalRowWidth = rows[i].reduce((sum, item) => sum + item.width, 0);
         let startX = (w - totalRowWidth) / 2;
@@ -197,6 +203,7 @@ function initSketch() {
         for (let item of rows[i]) {
           let n = item.noteRef;
           let noteOffset = (notePositions[n.note] || 8) * 6;
+
           if (noteOffset > rowHeight - 30) {
             noteOffset = ((noteOffset + 30) * rowHeight) / 100;
           }
@@ -204,20 +211,30 @@ function initSketch() {
           n.targetX = runningX + item.width / 2;
           n.targetY = y + noteOffset;
           n.spawnDelay = y * 0.15 + n.myPersonalTrinkle;
+
           runningX += item.width;
         }
+
         y += rowHeight;
       }
     }
 
-    p.windowResized = () => layoutNotes();
+    p.windowResized = function () {
+      layoutNotes();
+    };
 
     p.draw = function () {
-      p.background("#1B191B");
+      p.background("#793951");
 
       let canvasRect = p.canvas.getBoundingClientRect();
-      if (canvasRect.top < p.windowHeight - 20) hasTriggered = true;
-      if (hasTriggered) animationTimer += 4;
+
+      if (canvasRect.top < p.windowHeight - 20) {
+        hasTriggered = true;
+      }
+
+      if (hasTriggered) {
+        animationTimer += 4;
+      }
 
       for (let i = 0; i < melody.length; i++) {
         let n = melody[i];
@@ -236,6 +253,7 @@ function initSketch() {
 
         let fx = n.targetX + n.rX + n.offsetX;
         let fy = n.targetY + n.rY + bob + n.offsetY + n.dropOffset;
+
         n.screenX = fx;
         n.screenY = fy;
 
@@ -245,6 +263,7 @@ function initSketch() {
         let isActive = playing && i === currentNote;
         let isMusicNote = ["♪", "♫"].includes(n.char);
         let isHovered = p.dist(p.mouseX, p.mouseY, fx, fy) < 30 && !playing;
+
         let c = isActive || isMusicNote ? n.hue : p.color("#fcfcfc");
 
         if (isHovered && isMusicNote) {
@@ -256,23 +275,29 @@ function initSketch() {
             oscillator.amp(0, 0.05);
             lastHoveredIndex = i;
           }
+
           p.scale(1.4);
           p.rotate(p.sin(p.frameCount * 0.1) * 0.2);
           c = p.lerpColor(c, p.color("#fcfcfc"), 0.4);
 
           p.push();
           p.resetMatrix();
+
           let msg = "play song";
           p.textFont("Fragment Mono");
           p.textSize(14);
+
           let tw = p.textWidth(msg);
+
           p.noStroke();
           p.fill(0, 180);
           p.rectMode(p.CENTER);
           p.rect(p.mouseX + 38, p.mouseY - 10, tw + 32, 36, 10);
+
           p.fill("#fcfcfc");
           p.textAlign(p.CENTER, p.CENTER);
           p.text(msg, p.mouseX + 38, p.mouseY - 10);
+
           p.pop();
         } else if (lastHoveredIndex === i) {
           lastHoveredIndex = -1;
@@ -290,37 +315,51 @@ function initSketch() {
           p.text("ﾟ", -25, -10);
           p.text("+", 18, 18);
         }
+
         p.pop();
       }
     };
 
     function getHoveredNoteIndex() {
       for (let i = 0; i < melody.length; i++) {
-        if (p.dist(p.mouseX, p.mouseY, melody[i].screenX, melody[i].screenY) < 30) return i;
+        if (p.dist(p.mouseX, p.mouseY, melody[i].screenX, melody[i].screenY) < 30) {
+          return i;
+        }
       }
+
       return -1;
     }
 
     p.mousePressed = function () {
-      if (p.getAudioContext().state !== "running") p.getAudioContext().resume();
+      if (p.getAudioContext().state !== "running") {
+        p.getAudioContext().resume();
+      }
+
       let i = getHoveredNoteIndex();
+
       if (i !== -1) {
-        if (["♪", "♫"].includes(melody[i].char)) startMusic();
-        else draggedNoteIndex = i;
+        if (["♪", "♫"].includes(melody[i].char)) {
+          startMusic();
+        } else {
+          draggedNoteIndex = i;
+        }
       }
     };
+
     p.mouseDragged = function () {
       if (draggedNoteIndex !== -1) {
         melody[draggedNoteIndex].offsetX += p.movedX;
         melody[draggedNoteIndex].offsetY += p.movedY;
       }
     };
-    p.mouseReleased = () => {
+
+    p.mouseReleased = function () {
       draggedNoteIndex = -1;
     };
 
     function startMusic() {
       if (playing) return;
+
       playing = true;
       oscillator.start();
       playNote(0);
@@ -329,17 +368,23 @@ function initSketch() {
     function playNote(i) {
       if (i >= melody.length) {
         oscillator.amp(0, 0.2);
+
         setTimeout(() => {
           oscillator.stop();
           playing = false;
           currentNote = -1;
         }, 200);
+
         return;
       }
+
       currentNote = i;
+
       let n = melody[i];
+
       oscillator.freq(noteToFreq(n.note));
       oscillator.amp(0.3, 0.05);
+
       setTimeout(
         () => {
           oscillator.amp(0, 0.05);
@@ -347,6 +392,7 @@ function initSketch() {
         },
         n.dur * tempoMultiplier - 50,
       );
+
       setTimeout(() => playNote(i + 1), n.dur * tempoMultiplier);
     }
 
