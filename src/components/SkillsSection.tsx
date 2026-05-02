@@ -56,7 +56,7 @@ const SkillsSection = () => {
             className="font-black uppercase tracking-tight leading-none text-center text-transparent mb-12 sm:mb-16"
             style={{
               fontSize: "clamp(2.5rem, 8vw, 110px)",
-              WebkitTextStroke: "1.5px #793951",
+              WebkitTextStroke: "1.5px #FFFFFF",
             }}
           >
             Skills &amp; Tools
@@ -73,7 +73,7 @@ const SkillsSection = () => {
                     boxShadow: "0 0 32px rgba(121,57,81,0.35)",
                   }}
                   transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="rounded-3xl border-2 border-[#793951] p-6 sm:p-8 h-full"
+                  className="rounded-3xl border-2 border-white p-6 sm:p-8 h-full"
                   style={{
                     background:
                       "linear-gradient(135deg, rgba(255,200,221,0.55) 0%, rgba(255,182,205,0.35) 50%, rgba(255,220,232,0.5) 100%)",
