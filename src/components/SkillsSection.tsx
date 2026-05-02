@@ -56,7 +56,7 @@ const SkillsSection = () => {
             className="font-black uppercase tracking-tight leading-none text-center text-transparent mb-12 sm:mb-16"
             style={{
               fontSize: "clamp(2.5rem, 8vw, 110px)",
-              WebkitTextStroke: "1.5px #793951",
+              WebkitTextStroke: "1.5px #FFFFFF",
             }}
           >
             Skills &amp; Tools
