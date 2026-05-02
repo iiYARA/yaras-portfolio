@@ -71,7 +71,7 @@ const HeroSection = () => {
       <div
         className="absolute z-10 w-[340px] sm:w-[440px] md:w-[540px] lg:w-[640px]"
         style={{
-          top: "50%",
+          top: "60%",
           left: "50%",
           transform: "translate(-50%, -50%)",
         }}
