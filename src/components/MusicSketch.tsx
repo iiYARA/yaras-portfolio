@@ -43,6 +43,7 @@ export default function MusicSketch() {
         padding: "120px 0",
         overflow: "hidden",
         position: "relative",
+        background: "#793951",
       }}
     >
       <h2
