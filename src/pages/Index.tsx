@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
-import SkillsSection from "@/components/SkillsSection";
-import bgPink from "@/assets/about/pink_radial_bg.png";
 
 const Index = () => (
   <main style={{ overflowX: "clip" }}>
@@ -16,18 +14,7 @@ const Index = () => (
     >
       <AboutSection />
     </motion.div>
-    <div
-      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]"
-      style={{
-        backgroundImage: `url(${bgPink})`,
-        backgroundSize: "100% auto",
-        backgroundPosition: "top center",
-        backgroundRepeat: "repeat-y",
-      }}
-    >
-      <ProjectsSection />
-      <SkillsSection />
-    </div>
+    <ProjectsSection />
   </main>
 );
 
