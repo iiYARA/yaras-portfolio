@@ -25,7 +25,7 @@ export default function MusicSketch() {
 
       await loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js");
       await loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js");
-      await loadScript("/sketch.js?v=10");
+      await loadScript("/sketch.js");
     };
 
     start();
@@ -43,6 +43,7 @@ export default function MusicSketch() {
         padding: "120px 0",
         overflow: "hidden",
         position: "relative",
+        background: "#793951",
       }}
     >
       <h2
