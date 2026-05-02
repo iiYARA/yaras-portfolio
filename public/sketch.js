@@ -232,7 +232,7 @@ function initSketch() {
     };
 
     p.draw = function () {
-      p.clear();
+      p.background("#793951");
 
       let canvasRect = p.canvas.getBoundingClientRect();
 
