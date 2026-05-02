@@ -61,7 +61,7 @@ const HeroSection = () => {
           <h1 className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw] text-center">
             Hi, i&apos;m yara
           </h1>
-          <p className="text-center text-[#FF85A2] font-medium tracking-wide mt-2 text-sm sm:text-base md:text-lg lg:text-xl drop-shadow-sm">
+          <p className="text-center text-gradient-rose font-medium tracking-wide mt-2 text-sm sm:text-base md:text-lg lg:text-xl drop-shadow-sm">
             Computer Science Student | Effat University
           </p>
         </FadeIn>
