@@ -22,30 +22,26 @@ const items: Item[] = [
 
 const Card = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <motion.div
-    whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(244,166,184,0.45)" }}
+    whileHover={{ scale: 1.02, boxShadow: "0 0 32px rgba(121,57,81,0.35)" }}
     transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-    className="rounded-2xl p-6 sm:p-7 border border-white/30"
+    className="rounded-3xl border-2 border-[#793951] p-6 sm:p-8"
     style={{
       background:
-        "linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,200,221,0.12) 100%)",
-      backdropFilter: "blur(20px) saturate(1.4)",
-      WebkitBackdropFilter: "blur(20px) saturate(1.4)",
-      boxShadow:
-        "0 8px 32px rgba(121,57,81,0.18), 0 0 24px rgba(244,166,184,0.25)",
+        "linear-gradient(135deg, rgba(255,200,221,0.55) 0%, rgba(255,182,205,0.35) 50%, rgba(255,220,232,0.5) 100%)",
+      backdropFilter: "blur(24px) saturate(1.4)",
+      WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+      boxShadow: "0 8px 32px rgba(121,57,81,0.12)",
     }}
   >
     <h3
-      className="font-bold text-white mb-2"
-      style={{ fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)" }}
+      className="font-bold uppercase text-[#793951] tracking-wide mb-2"
+      style={{ fontSize: "clamp(1.15rem, 2vw, 1.5rem)" }}
     >
       {title}
     </h3>
     <p
-      className="font-medium"
-      style={{
-        color: "#FFE3EC",
-        fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)",
-      }}
+      className="font-medium text-[#793951]/80"
+      style={{ fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)" }}
     >
       {subtitle}
     </p>
