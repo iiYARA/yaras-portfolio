@@ -1,22 +1,41 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import p5 from "p5";
 
+type MelodyNote = {
+  note: keyof typeof noteFrequencies;
+  dur: number;
+};
+
+type VisualNote = {
+  x: number;
+  y: number;
+  char: string;
+};
+
+const noteFrequencies = {
+  D4: 293.66,
+  B4: 493.88,
+  G3: 196,
+  D3: 146.83,
+  E3: 164.81,
+  "F#3": 185,
+} as const;
+
 export default function MusicSketch() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const sketch = (p: any) => {
-      let oscillator;
+    let audioCtx: AudioContext | null = null;
+    const noteTimers: number[] = [];
+
+    const sketch = (p: p5) => {
       let playing = false;
-      let currentNote = -1;
-      let tempoMultiplier = 300;
-      let draggedNoteIndex = -1;
-      let hasTriggered = false;
-      let animationTimer = 0;
-      let lastHoveredIndex = -1;
+      const tempoMultiplier = 300;
 
       const MAX_WIDTH = 1280;
       const MAX_HEIGHT = 600;
 
-      let melody = [
+      const melody: MelodyNote[] = [
         { note: "D4", dur: 3 },
         { note: "B4", dur: 3 },
         { note: "G3", dur: 3 },
@@ -29,25 +48,63 @@ export default function MusicSketch() {
         { note: "D3", dur: 3 },
       ];
 
-      let celestialSymbols = ["♪", "♫", "☆", "+", "~", "."];
+      const celestialSymbols = ["♪", "♫", "☆", "+", "~", "."];
+      let visualNotes: VisualNote[] = [];
+
+      const playNote = (index: number) => {
+        if (!audioCtx || index >= melody.length) {
+          playing = false;
+          return;
+        }
+
+        const current = melody[index];
+        const now = audioCtx.currentTime;
+        const duration = current.dur * 0.18;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = "square";
+        osc.frequency.setValueAtTime(noteFrequencies[current.note], now);
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.12, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + duration);
+
+        noteTimers.push(window.setTimeout(() => playNote(index + 1), current.dur * tempoMultiplier));
+      };
+
+      const startSong = async () => {
+        audioCtx ??= new AudioContext();
+        if (audioCtx.state !== "running") {
+          await audioCtx.resume();
+        }
+
+        if (!playing) {
+          playing = true;
+          playNote(0);
+        }
+      };
 
       p.setup = () => {
         let w = Math.min(p.windowWidth, MAX_WIDTH);
         let h = Math.min(p.windowHeight * 0.5, MAX_HEIGHT);
 
         let cnv = p.createCanvas(w, h);
-        cnv.parent("sketch-container");
+        if (containerRef.current) {
+          cnv.parent(containerRef.current);
+        }
 
         cnv.style("background", "transparent");
 
-        oscillator = new p5.Oscillator("square");
-        oscillator.amp(0);
-
-        for (let n of melody) {
-          n.x = p.random(w);
-          n.y = p.random(h);
-          n.char = p.random(celestialSymbols);
-        }
+        visualNotes = melody.map(() => ({
+          x: p.random(w),
+          y: p.random(h),
+          char: p.random(celestialSymbols),
+        }));
 
         p.textAlign(p.CENTER, p.CENTER);
       };
@@ -55,7 +112,7 @@ export default function MusicSketch() {
       p.draw = () => {
         p.clear();
 
-        for (let n of melody) {
+        for (let n of visualNotes) {
           p.fill("#ffffff");
           p.textSize(24);
           p.text(n.char, n.x, n.y);
@@ -65,16 +122,18 @@ export default function MusicSketch() {
         p.text("play song", p.width / 2, p.height / 2);
       };
 
-      p.mousePressed = () => {
-        if (p.getAudioContext().state !== "running") {
-          p.getAudioContext().resume();
-        }
+      p.mousePressed = async () => {
+        await startSong();
       };
     };
 
     const instance = new p5(sketch);
 
-    return () => instance.remove();
+    return () => {
+      noteTimers.forEach(window.clearTimeout);
+      void audioCtx?.close();
+      instance.remove();
+    };
   }, []);
 
   return (
@@ -83,7 +142,7 @@ export default function MusicSketch() {
 
       <p style={{ color: "#aaa" }}>Play a song that holds a special place in my heart</p>
 
-      <div id="sketch-container"></div>
+      <div ref={containerRef}></div>
     </div>
   );
 }
