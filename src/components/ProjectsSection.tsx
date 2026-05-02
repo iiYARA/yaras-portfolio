@@ -9,7 +9,71 @@ type Project = {
   name: string;
   description: string;
   tech: string;
+  href?: string;
+  customBoxes?: {
+    topLeft: React.ReactNode;
+    bottomLeft: React.ReactNode;
+    right: React.ReactNode;
+  };
 };
+
+const PhaseRow = ({ n, label }: { n: string; label: string }) => (
+  <div className="flex items-center gap-2 rounded-lg bg-white/40 border border-[#793951]/25 px-2 py-1">
+    <span className="text-[#793951] font-bold text-[10px] sm:text-[11px] tracking-wider">{n}</span>
+    <span className="text-[#793951]/85 font-medium text-[10px] sm:text-[11px] leading-tight">{label}</span>
+  </div>
+);
+
+const StatBlock = ({ value, label }: { value: string; label: string }) => (
+  <div
+    className="rounded-2xl border border-[#793951]/30 px-3 py-3 sm:px-4 sm:py-4 flex flex-col items-start justify-center"
+    style={{
+      background:
+        "linear-gradient(135deg, rgba(255,220,232,0.7), rgba(255,200,221,0.5))",
+    }}
+  >
+    <div
+      className="font-black text-[#793951] leading-none"
+      style={{ fontSize: "clamp(1.4rem, 2.4vw, 2rem)" }}
+    >
+      {value}
+    </div>
+    <div className="text-[#793951]/75 font-medium text-[10px] sm:text-xs mt-1 leading-tight">
+      {label}
+    </div>
+  </div>
+);
+
+const ResultBar = ({
+  label,
+  metric,
+  pct,
+}: {
+  label: string;
+  metric: string;
+  pct: number;
+}) => (
+  <div className="flex flex-col gap-1">
+    <div className="flex justify-between items-baseline gap-2">
+      <span className="text-[#793951]/85 font-medium text-[10px] sm:text-[11px] leading-tight">
+        {label}
+      </span>
+      <span className="text-[#793951] font-bold text-[10px] sm:text-[11px]">
+        {metric}
+      </span>
+    </div>
+    <div className="h-1.5 rounded-full bg-white/50 border border-[#793951]/20 overflow-hidden">
+      <div
+        className="h-full rounded-full"
+        style={{
+          width: `${pct}%`,
+          background:
+            "linear-gradient(90deg, #793951, rgba(121,57,81,0.55))",
+        }}
+      />
+    </div>
+  </div>
+);
 
 const projects: Project[] = [
   {
@@ -17,8 +81,67 @@ const projects: Project[] = [
     category: "Academic",
     name: "Machine Learning Project",
     description:
-      "A project focused on applying machine learning concepts to analyze data and build predictive models based on real datasets.",
+      "A machine learning project focused on health risk prediction across diverse patient populations, exploring distribution shift, threshold tuning, and out-of-distribution robustness.",
     tech: "Python, Machine Learning, Data Analysis",
+    href: "https://judyabuquta.github.io/CS4082_health-prediction-distribution-shift/#pipeline",
+    customBoxes: {
+      topLeft: (
+        <div className="w-full h-full flex flex-col p-3 sm:p-4">
+          <div className="text-[#793951] font-bold text-[11px] sm:text-xs uppercase tracking-wider leading-tight mb-2 sm:mb-3">
+            Ten-Phase Experimental Design
+          </div>
+          <div className="grid grid-cols-2 gap-1.5 sm:gap-2 flex-1 content-start">
+            <PhaseRow n="01" label="Data Preparation" />
+            <PhaseRow n="02" label="Exploratory Analysis" />
+            <PhaseRow n="03" label="In-Domain Training" />
+            <PhaseRow n="04" label="OOD Evaluation" />
+            <PhaseRow n="05" label="In-Domain Mitigation" />
+            <PhaseRow n="06" label="Threshold Tuning" />
+            <PhaseRow n="07" label="Pooled Training" />
+            <PhaseRow n="08–10" label="Comparison & Conclusion" />
+          </div>
+        </div>
+      ),
+      bottomLeft: (
+        <div className="w-full h-full flex flex-col p-3 sm:p-4">
+          <div className="text-[#793951] font-bold text-[11px] sm:text-xs uppercase tracking-wider leading-tight mb-2 sm:mb-3">
+            Key Results
+          </div>
+          <div className="flex flex-col gap-2 sm:gap-2.5 flex-1">
+            <ResultBar label="OOD AUC range" metric="0.66–0.69" pct={69} />
+            <ResultBar label="Best F1 (SVM balanced)" metric="0.3611" pct={36} />
+            <ResultBar label="Best Recall (T=0.35)" metric="0.7438" pct={74} />
+            <ResultBar label="Best Precision (Pooled LR)" metric="0.4125" pct={41} />
+          </div>
+          <div className="mt-2 text-[#793951]/75 font-medium text-[9px] sm:text-[10px] italic leading-snug">
+            Threshold tuning was the strongest source-only fix under distribution shift.
+          </div>
+        </div>
+      ),
+      right: (
+        <div className="w-full h-full flex flex-col p-4 sm:p-6 md:p-7">
+          <div className="text-[#793951]/70 font-semibold text-[10px] sm:text-xs uppercase tracking-[0.25em] mb-2">
+            Mini Hero
+          </div>
+          <h4
+            className="text-[#793951] font-black leading-tight"
+            style={{ fontSize: "clamp(1.1rem, 2vw, 1.75rem)" }}
+          >
+            Health Risk Prediction Under Distribution Shift
+          </h4>
+          <p className="text-[#793951]/80 font-medium text-xs sm:text-sm mt-2 sm:mt-3 leading-relaxed max-w-[520px]">
+            Predicting cardiac risk across different patient populations while
+            studying how model performance changes under distribution shift.
+          </p>
+          <div className="grid grid-cols-2 gap-2 sm:gap-3 mt-4 sm:mt-5 flex-1 content-end">
+            <StatBlock value="0.90" label="Best in-domain AUC" />
+            <StatBlock value="0.69" label="OOD AUC ceiling" />
+            <StatBlock value="3.6×" label="Label shift ratio" />
+            <StatBlock value="10" label="Experimental phases" />
+          </div>
+        </div>
+      ),
+    },
   },
   {
     number: "02",
