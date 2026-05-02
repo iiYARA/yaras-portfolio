@@ -70,22 +70,21 @@ const SkillsSection = () => {
                 <motion.div
                   whileHover={{
                     scale: 1.02,
-                    boxShadow: "0 0 40px rgba(244,166,184,0.45)",
+                    boxShadow: "0 0 32px rgba(121,57,81,0.35)",
                   }}
                   transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="rounded-2xl border border-white/30 p-6 sm:p-8 h-full"
+                  className="rounded-3xl border-2 border-[#793951] p-6 sm:p-8 h-full"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,200,221,0.12) 100%)",
-                    backdropFilter: "blur(20px) saturate(1.4)",
-                    WebkitBackdropFilter: "blur(20px) saturate(1.4)",
-                    boxShadow:
-                      "0 8px 32px rgba(121,57,81,0.18), 0 0 24px rgba(244,166,184,0.25)",
+                      "linear-gradient(135deg, rgba(255,200,221,0.55) 0%, rgba(255,182,205,0.35) 50%, rgba(255,220,232,0.5) 100%)",
+                    backdropFilter: "blur(24px) saturate(1.4)",
+                    WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+                    boxShadow: "0 8px 32px rgba(121,57,81,0.12)",
                     willChange: "transform",
                   }}
                 >
                   <h3
-                    className="font-bold uppercase text-white tracking-wide mb-5 sm:mb-6"
+                    className="font-bold uppercase text-[#793951] tracking-wide mb-5 sm:mb-6"
                     style={{ fontSize: "clamp(1.25rem, 2vw, 1.6rem)" }}
                   >
                     {group.title}
