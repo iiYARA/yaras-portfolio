@@ -69,8 +69,15 @@ const HeroSection = () => {
 
       {/* Portrait — centered, floating */}
       <motion.div
-        style={{ opacity: avatarOpacity, scale: avatarScale, y: avatarY }}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[340px] sm:w-[440px] md:w-[540px] lg:w-[640px]"
+        style={{
+          opacity: avatarOpacity,
+          scale: avatarScale,
+          y: avatarY,
+          left: "50%",
+          top: "55%",
+          transform: "translate(-50%, -50%)",
+        }}
+        className="absolute z-10 w-[180px] sm:w-[260px] md:w-[320px] lg:w-[320px]"
       >
         <FadeIn delay={0.6} y={30}>
           <Magnet padding={200} strength={2}>
