@@ -4,6 +4,7 @@ import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import SkillsSection from "@/components/SkillsSection";
 import EducationSection from "@/components/EducationSection";
+import MusicSketch from "@/components/MusicSketch";
 import bgPink from "@/assets/about/pink_radial_bg.png";
 
 const Index = () => (
@@ -27,6 +28,7 @@ const Index = () => (
       }}
     >
       <ProjectsSection />
+      <MusicSketch />
       <SkillsSection />
       <EducationSection />
     </div>
