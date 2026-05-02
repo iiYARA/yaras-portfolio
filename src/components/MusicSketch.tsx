@@ -53,7 +53,7 @@ export default function MusicSketch() {
           marginBottom: "12px",
         }}
       >
-        When Computers Learned to Sing
+        Designing harmony, one pixel at a time.
       </h2>
 
       <p
@@ -63,7 +63,7 @@ export default function MusicSketch() {
           marginBottom: "48px",
         }}
       >
-        In 1961, the IBM 7094 performed “Daisy Bell” for the first time, transforming a simple tune into one of the earliest moments when technology began to feel almost alive.
+        Play a song that holds a special place in my heart
       </p>
 
       <div
