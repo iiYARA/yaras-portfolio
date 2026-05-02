@@ -1,3 +1,4 @@
+// sketch.js
 function initSketch() {
   const sketch = function (p) {
     let oscillator;
@@ -126,12 +127,13 @@ function initSketch() {
       cnv.style("display", "block");
       cnv.style("max-width", "100%");
       cnv.style("height", "auto");
+      cnv.style("background", "transparent");
 
       p.textAlign(p.CENTER, p.CENTER);
       p.textFont("Doto");
       p.colorMode(p.RGB, 255, 255, 255, 255);
 
-      celestialColors = [p.color("#C08AA3"), p.color("#E6B7C8"), p.color("#FFFFFF")];
+      celestialColors = [p.color("#FA36A3"), p.color("#6FB5B6"), p.color("#D92731")];
 
       oscillator = new p5.Oscillator("square");
       oscillator.amp(0);
@@ -141,7 +143,8 @@ function initSketch() {
         n.rY = p.random(-15, 15);
         n.sizeVar = p.random(0.7, 1.1);
         n.jittOffset = p.random(100);
-        n.offsetX = n.offsetY = 0;
+        n.offsetX = 0;
+        n.offsetY = 0;
         n.hue = p.random(celestialColors);
         n.parallaxMult = p.random(0.02, 0.06);
         n.opacity = 0;
@@ -159,7 +162,6 @@ function initSketch() {
 
       let margin = isMobile ? 16 : 32;
       let maxLineWidth = w - margin * 2;
-
       let minRowHeight = 130;
 
       let rows = [[]];
@@ -220,17 +222,22 @@ function initSketch() {
     }
 
     p.windowResized = function () {
+      let w = getContainerWidth();
+      let isMobile = w < 600;
+
+      let canvasHeight = Math.min(isMobile ? p.windowHeight * 0.75 : p.windowHeight * 0.6, MAX_HEIGHT);
+
+      p.resizeCanvas(w, canvasHeight);
       layoutNotes();
     };
 
     p.draw = function () {
-      p.draw = function () {
-  p.background("#793951");
+      p.clear();
 
-  let canvasRect = p.canvas.getBoundingClientRect();
-  if (canvasRect.top < p.windowHeight - 20) hasTriggered = true;
-  if (hasTriggered) animationTimer += 4;
-  };
+      let canvasRect = p.canvas.getBoundingClientRect();
+
+      if (canvasRect.top < p.windowHeight - 20) {
+        hasTriggered = true;
       }
 
       if (hasTriggered) {

@@ -5,7 +5,6 @@ export default function MusicSketch() {
     const loadScript = (src: string) => {
       return new Promise<void>((resolve, reject) => {
         const existing = document.querySelector(`script[src="${src}"]`);
-
         if (existing) {
           resolve();
           return;
@@ -26,9 +25,7 @@ export default function MusicSketch() {
 
       await loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js");
       await loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js");
-
-      // Cache-buster so Lovable loads the newest sketch.js
-      await loadScript("/sketch.js?v=3");
+      await loadScript("/sketch.js");
     };
 
     start();
@@ -41,9 +38,7 @@ export default function MusicSketch() {
 
   return (
     <section
-      className="music-section"
       style={{
-        backgroundColor: "#793951",
         textAlign: "center",
         padding: "120px 0",
         overflow: "hidden",
