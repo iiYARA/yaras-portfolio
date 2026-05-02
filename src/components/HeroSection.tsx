@@ -67,21 +67,27 @@ const HeroSection = () => {
         </FadeIn>
       </motion.div>
 
-      {/* Portrait — centered, floating */}
-      <motion.div
-        style={{ opacity: avatarOpacity, scale: avatarScale, y: avatarY }}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[340px] sm:w-[440px] md:w-[540px] lg:w-[640px]"
+      {/* Portrait — perfectly centered in the hero */}
+      <div
+        className="absolute z-10 w-[340px] sm:w-[440px] md:w-[540px] lg:w-[640px]"
+        style={{
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
       >
-        <FadeIn delay={0.6} y={30}>
-          <Magnet padding={200} strength={2}>
-            <img
-              src={jackAvatar}
-              alt="Yara 3D Avatar"
-              className="w-full h-auto drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
-            />
-          </Magnet>
-        </FadeIn>
-      </motion.div>
+        <motion.div style={{ opacity: avatarOpacity, scale: avatarScale, y: avatarY }}>
+          <FadeIn delay={0.6} y={30}>
+            <Magnet padding={200} strength={2}>
+              <img
+                src={jackAvatar}
+                alt="Yara 3D Avatar"
+                className="w-full h-auto drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
+              />
+            </Magnet>
+          </FadeIn>
+        </motion.div>
+      </div>
 
       {/* Soft pastel pink fade overlay for smooth transition */}
       <motion.div
