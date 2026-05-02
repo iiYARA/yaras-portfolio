@@ -63,6 +63,13 @@ html, body, #root {
   background-clip: text;
 }
 
+.text-gradient-rose {
+  background: linear-gradient(180deg, #C26A88 0%, #9E4D6C 50%, #793951 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .liquid-glass-btn {
   position: relative;
   background: rgba(255, 255, 255, 0.08);
