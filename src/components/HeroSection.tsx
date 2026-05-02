@@ -5,7 +5,12 @@ import Magnet from "./Magnet";
 import jackAvatar from "@/assets/jack-avatar.png";
 import bgGif from "@/assets/background_pic.gif";
 
-const navLinks = ["About Me", "Education", "Projects", "Skills"];
+const navLinks = [
+  { label: "About Me", href: "#about-me" },
+  { label: "Project", href: "#projects" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+];
 
 const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -44,11 +49,11 @@ const HeroSection = () => {
           <nav className="flex justify-between">
             {navLinks.map((link) => (
               <a
-                key={link}
-                href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
+                key={link.label}
+                href={link.href}
                 className="text-gradient-rose font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
               >
-                {link}
+                {link.label}
               </a>
             ))}
           </nav>
