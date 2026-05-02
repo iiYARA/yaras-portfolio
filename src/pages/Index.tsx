@@ -6,6 +6,7 @@ import SkillsSection from "@/components/SkillsSection";
 import EducationSection from "@/components/EducationSection";
 import bgPink from "@/assets/about/pink_radial_bg.png";
 import MusicSketch from "@/components/MusicSketch";
+import ContactSection from "@/components/ContactSection";
 
 const Index = () => (
   <main style={{ overflowX: "clip" }}>
@@ -30,6 +31,7 @@ const Index = () => (
       <ProjectsSection />
       <SkillsSection />
       <EducationSection />
+      <ContactSection />
       <MusicSketch />
     </div>
   </main>
