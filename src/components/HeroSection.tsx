@@ -5,7 +5,7 @@ import Magnet from "./Magnet";
 import jackAvatar from "@/assets/jack-avatar.png";
 import bgGif from "@/assets/background_pic.gif";
 
-const navLinks = ["About Me", "Education", "Projects", "Skills"];
+const navLinks = ["About Me", "Project", "Projects", "Skills"];
 
 const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
