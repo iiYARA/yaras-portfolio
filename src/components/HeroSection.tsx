@@ -46,7 +46,7 @@ const HeroSection = () => {
               <a
                 key={link}
                 href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
-                className="text-[#FF85A2] font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
+                className="text-gradient-rose font-semibold uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200 drop-shadow-sm"
               >
                 {link}
               </a>
@@ -61,27 +61,33 @@ const HeroSection = () => {
           <h1 className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw] text-center">
             Hi, i&apos;m yara
           </h1>
-          <p className="text-center text-[#FF85A2] font-medium tracking-wide mt-2 text-sm sm:text-base md:text-lg lg:text-xl drop-shadow-sm">
+          <p className="text-center text-gradient-rose font-medium tracking-wide mt-2 text-sm sm:text-base md:text-lg lg:text-xl drop-shadow-sm">
             Computer Science Student | Effat University
           </p>
         </FadeIn>
       </motion.div>
 
-      {/* Portrait — centered, floating */}
-      <motion.div
-        style={{ opacity: avatarOpacity, scale: avatarScale, y: avatarY }}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[340px] sm:w-[440px] md:w-[540px] lg:w-[640px]"
+      {/* Portrait — perfectly centered in the hero */}
+      <div
+        className="absolute z-10 w-[340px] sm:w-[440px] md:w-[540px] lg:w-[640px]"
+        style={{
+          top: "70%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
       >
-        <FadeIn delay={0.6} y={30}>
-          <Magnet padding={200} strength={2}>
-            <img
-              src={jackAvatar}
-              alt="Yara 3D Avatar"
-              className="w-full h-auto drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
-            />
-          </Magnet>
-        </FadeIn>
-      </motion.div>
+        <motion.div style={{ opacity: avatarOpacity, scale: avatarScale, y: avatarY }}>
+          <FadeIn delay={0.6} y={30}>
+            <Magnet padding={200} strength={2}>
+              <img
+                src={jackAvatar}
+                alt="Yara 3D Avatar"
+                className="w-full h-auto drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
+              />
+            </Magnet>
+          </FadeIn>
+        </motion.div>
+      </div>
 
       {/* Soft pastel pink fade overlay for smooth transition */}
       <motion.div

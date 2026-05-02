@@ -154,13 +154,7 @@ const ProjectsSection = () => {
     <section
       id="projects"
       ref={ref}
-      className="relative -mt-10 sm:-mt-12 md:-mt-14 z-10 rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]"
-      style={{
-        backgroundImage: `url(${bgPink})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
+      className="relative z-10"
     >
       {/* Heading */}
       <div className="pt-20 sm:pt-24 md:pt-28 pb-10 sm:pb-14 md:pb-16 px-5 flex justify-center">
