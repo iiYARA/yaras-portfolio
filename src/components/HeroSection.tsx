@@ -5,7 +5,12 @@ import Magnet from "./Magnet";
 import jackAvatar from "@/assets/jack-avatar.png";
 import bgGif from "@/assets/background_pic.gif";
 
-const navLinks = ["About Me", "Project", "Projects", "Skills"];
+const navLinks = [
+  { label: "About Me", href: "#about-me" },
+  { label: "Project", href: "#projects" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+];
 
 const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
