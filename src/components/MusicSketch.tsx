@@ -68,7 +68,7 @@ export default function MusicSketch() {
         }}
       >
         In 1961, the IBM 7094 performed “Daisy Bell” for the first time,{"\n"} 
-        transforming a simple tune into one of the earliest moments when technology began to feel almost alive.
+        transforming a simple tune into one of the earliest moments when technology began to feel almost alive!
       </p>
 
       <div
