@@ -213,7 +213,7 @@ function initSketch() {
     p.windowResized = () => layoutNotes();
 
     p.draw = function () {
-      p.background("#793951");
+      p.background("#1B191B");
 
       let canvasRect = p.canvas.getBoundingClientRect();
       if (canvasRect.top < p.windowHeight - 20) hasTriggered = true;
