@@ -2,6 +2,9 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import FadeIn from "./FadeIn";
 import bgPink from "@/assets/about/pink_radial_bg.png";
+import fidakHome from "@/assets/projects/fidak-home.png";
+import fidakDonor from "@/assets/projects/fidak-donor.png";
+import fidakAdmin from "@/assets/projects/fidak-admin.png";
 
 type Project = {
   number: string;
@@ -146,10 +149,23 @@ const projects: Project[] = [
   {
     number: "02",
     category: "Academic",
-    name: "Web Application Development",
+    name: "Fidak Blood Donation Management System",
     description:
-      "A web development project demonstrating responsive design, user interaction, and front-end structure.",
-    tech: "HTML, CSS, JavaScript",
+      "A web-based blood donation management system for Saudi Arabia that allows donors to register, users to request blood, and admins to manage donors, requests, contact queries, and website content through a secure dashboard.",
+    tech: "PHP, MySQL, Bootstrap, jQuery, CRUD",
+    href: "https://github.com/iiYARA/fidak-blood-donation-management-system",
+    buttonLabel: "View GitHub",
+    customBoxes: {
+      topLeft: (
+        <img src={fidakDonor} alt="Become a Blood Donor screen" className="w-full h-full object-cover" />
+      ),
+      bottomLeft: (
+        <img src={fidakAdmin} alt="Admin Dashboard screen" className="w-full h-full object-cover" />
+      ),
+      right: (
+        <img src={fidakHome} alt="Fidak Home Page" className="w-full h-full object-cover" />
+      ),
+    },
   },
   {
     number: "03",
