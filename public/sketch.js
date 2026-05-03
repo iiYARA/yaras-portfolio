@@ -1,4 +1,11 @@
 function initSketch() {
+  if (!window.p5) return;
+
+  if (window.musicP5Instance) {
+    window.musicP5Instance.remove();
+    window.musicP5Instance = undefined;
+  }
+
   const sketch = function (p) {
     let oscillator;
     let playing = false;
@@ -9,7 +16,6 @@ function initSketch() {
     let animationTimer = 0;
     let lastHoveredIndex = -1;
 
-    // max-w-7xl = 1280px
     const MAX_WIDTH = 1280;
     const MAX_HEIGHT = 600;
 
@@ -86,47 +92,35 @@ function initSketch() {
     };
 
     let celestialSymbols = [
-      "@",
-      "♪",
-      "^",
-      "☆",
-      "♡",
-      "<",
-      "#",
-      "＊",
-      "&",
-      "!",
-      "+",
-      "~",
-      "=",
-      "?",
-      "%",
-      "♫",
-      "o",
-      "•",
-      ".",
+      "@", "♪", "^", "☆", "♡", "<", "#", "＊", "&", "!", "+", "~", "=",
+      "?", "%", "♫", "o", "•", "."
     ];
+
     let celestialColors = [];
 
     function getContainerWidth() {
-      let container = document.getElementById("sketch-container");
-      let rect = container ? container.getBoundingClientRect() : { width: p.windowWidth };
-      return Math.min(Math.floor(rect.width) || p.windowWidth, MAX_WIDTH);
+      const container = document.getElementById("sketch-container");
+      const rect = container ? container.getBoundingClientRect() : { width: window.innerWidth };
+      return Math.min(Math.floor(rect.width) || window.innerWidth, MAX_WIDTH);
+    }
+
+    function getCanvasHeight(w) {
+      const isMobile = w < 600;
+      return Math.min(isMobile ? window.innerHeight * 0.75 : window.innerHeight * 0.6, MAX_HEIGHT);
     }
 
     p.setup = function () {
-      let w = getContainerWidth();
-      let isMobile = w < 600;
-      let canvasHeight = Math.min(isMobile ? p.windowHeight * 0.75 : p.windowHeight * 0.6, MAX_HEIGHT);
+      const w = getContainerWidth();
+      const h = getCanvasHeight(w);
 
-      let cnv = p.createCanvas(w, canvasHeight);
+      const cnv = p.createCanvas(w, h);
       cnv.parent("sketch-container");
       cnv.style("display", "block");
       cnv.style("max-width", "100%");
       cnv.style("height", "auto");
 
       p.textAlign(p.CENTER, p.CENTER);
-      p.textFont("Doto");
+      p.textFont("sans-serif");
       p.colorMode(p.RGB, 255, 255, 255, 255);
 
       celestialColors = [p.color("#FA36A3"), p.color("#6FB5B6"), p.color("#D92731")];
@@ -139,9 +133,9 @@ function initSketch() {
         n.rY = p.random(-15, 15);
         n.sizeVar = p.random(0.7, 1.1);
         n.jittOffset = p.random(100);
-        n.offsetX = n.offsetY = 0;
+        n.offsetX = 0;
+        n.offsetY = 0;
         n.hue = p.random(celestialColors);
-        n.parallaxMult = p.random(0.02, 0.06);
         n.opacity = 0;
         n.dropOffset = -400;
         n.myPersonalTrinkle = p.random(10, 40);
@@ -153,11 +147,8 @@ function initSketch() {
 
     function layoutNotes() {
       let w = p.width;
-      let isMobile = w < 600;
-
-      let margin = isMobile ? 16 : 32;
+      let margin = w < 600 ? 16 : 32;
       let maxLineWidth = w - margin * 2;
-
       let minRowHeight = 130;
 
       let rows = [[]];
@@ -177,46 +168,51 @@ function initSketch() {
 
       let contentHeight = rows.length * minRowHeight;
       let rowHeight;
-
       let topPadding = 64;
       let bottomPadding = 40;
-      const mobileHeight = p.height - topPadding - bottomPadding;
-      if (contentHeight > mobileHeight) {
-        rowHeight = mobileHeight / rows.length;
+      const availableHeight = p.height - topPadding - bottomPadding;
+
+      if (contentHeight > availableHeight) {
+        rowHeight = availableHeight / rows.length;
       } else {
         rowHeight = minRowHeight;
-        topPadding = (p.height - contentHeight) / 2 + 40;
+        topPadding = Math.max(40, (p.height - contentHeight) / 2);
       }
 
       let y = topPadding;
-      for (let i = 0; i < rows.length; i++) {
-        let totalRowWidth = rows[i].reduce((sum, item) => sum + item.width, 0);
+
+      for (let row of rows) {
+        let totalRowWidth = row.reduce((sum, item) => sum + item.width, 0);
         let startX = (w - totalRowWidth) / 2;
         let runningX = startX;
 
-        for (let item of rows[i]) {
+        for (let item of row) {
           let n = item.noteRef;
           let noteOffset = (notePositions[n.note] || 8) * 6;
-          if (noteOffset > rowHeight - 30) {
-            noteOffset = ((noteOffset + 30) * rowHeight) / 100;
-          }
 
           n.targetX = runningX + item.width / 2;
           n.targetY = y + noteOffset;
           n.spawnDelay = y * 0.15 + n.myPersonalTrinkle;
+
           runningX += item.width;
         }
+
         y += rowHeight;
       }
     }
 
-    p.windowResized = () => layoutNotes();
+    p.windowResized = function () {
+      const w = getContainerWidth();
+      const h = getCanvasHeight(w);
+      p.resizeCanvas(w, h);
+      layoutNotes();
+    };
 
     p.draw = function () {
       p.background("#793951");
 
-      let canvasRect = p.canvas.getBoundingClientRect();
-      if (canvasRect.top < p.windowHeight - 20) hasTriggered = true;
+      const canvasRect = p.canvas.getBoundingClientRect();
+      if (canvasRect.top < window.innerHeight - 20) hasTriggered = true;
       if (hasTriggered) animationTimer += 4;
 
       for (let i = 0; i < melody.length; i++) {
@@ -236,6 +232,7 @@ function initSketch() {
 
         let fx = n.targetX + n.rX + n.offsetX;
         let fy = n.targetY + n.rY + bob + n.offsetY + n.dropOffset;
+
         n.screenX = fx;
         n.screenY = fy;
 
@@ -256,24 +253,10 @@ function initSketch() {
             oscillator.amp(0, 0.05);
             lastHoveredIndex = i;
           }
+
           p.scale(1.4);
           p.rotate(p.sin(p.frameCount * 0.1) * 0.2);
           c = p.lerpColor(c, p.color("#fcfcfc"), 0.4);
-
-          p.push();
-          p.resetMatrix();
-          let msg = "play song";
-          p.textFont("Fragment Mono");
-          p.textSize(14);
-          let tw = p.textWidth(msg);
-          p.noStroke();
-          p.fill(0, 180);
-          p.rectMode(p.CENTER);
-          p.rect(p.mouseX + 38, p.mouseY - 10, tw + 32, 36, 10);
-          p.fill("#fcfcfc");
-          p.textAlign(p.CENTER, p.CENTER);
-          p.text(msg, p.mouseX + 38, p.mouseY - 10);
-          p.pop();
         } else if (lastHoveredIndex === i) {
           lastHoveredIndex = -1;
         }
@@ -290,32 +273,41 @@ function initSketch() {
           p.text("ﾟ", -25, -10);
           p.text("+", 18, 18);
         }
+
         p.pop();
       }
     };
 
     function getHoveredNoteIndex() {
       for (let i = 0; i < melody.length; i++) {
-        if (p.dist(p.mouseX, p.mouseY, melody[i].screenX, melody[i].screenY) < 30) return i;
+        if (p.dist(p.mouseX, p.mouseY, melody[i].screenX, melody[i].screenY) < 30) {
+          return i;
+        }
       }
       return -1;
     }
 
     p.mousePressed = function () {
       if (p.getAudioContext().state !== "running") p.getAudioContext().resume();
+
       let i = getHoveredNoteIndex();
       if (i !== -1) {
-        if (["♪", "♫"].includes(melody[i].char)) startMusic();
-        else draggedNoteIndex = i;
+        if (["♪", "♫"].includes(melody[i].char)) {
+          startMusic();
+        } else {
+          draggedNoteIndex = i;
+        }
       }
     };
+
     p.mouseDragged = function () {
       if (draggedNoteIndex !== -1) {
         melody[draggedNoteIndex].offsetX += p.movedX;
         melody[draggedNoteIndex].offsetY += p.movedY;
       }
     };
-    p.mouseReleased = () => {
+
+    p.mouseReleased = function () {
       draggedNoteIndex = -1;
     };
 
@@ -336,17 +328,17 @@ function initSketch() {
         }, 200);
         return;
       }
+
       currentNote = i;
       let n = melody[i];
       oscillator.freq(noteToFreq(n.note));
       oscillator.amp(0.3, 0.05);
-      setTimeout(
-        () => {
-          oscillator.amp(0, 0.05);
-          n.char = p.random(celestialSymbols);
-        },
-        n.dur * tempoMultiplier - 50,
-      );
+
+      setTimeout(() => {
+        oscillator.amp(0, 0.05);
+        n.char = p.random(celestialSymbols);
+      }, n.dur * tempoMultiplier - 50);
+
       setTimeout(() => playNote(i + 1), n.dur * tempoMultiplier);
     }
 
@@ -355,23 +347,26 @@ function initSketch() {
         D3: 146.83,
         E3: 164.81,
         F3: 174.61,
-        "F#3": 185,
-        G3: 196,
-        A3: 220,
+        "F#3": 185.0,
+        G3: 196.0,
+        A3: 220.0,
         B3: 246.94,
         C4: 261.63,
         D4: 293.66,
         E4: 329.63,
         F4: 349.23,
         "F#4": 369.99,
-        G4: 392,
-        A4: 440,
+        G4: 392.0,
+        A4: 440.0,
         B4: 493.88,
-      }[n];
+      }[n] || 220;
     }
   };
 
-  new p5(sketch, document.getElementById("sketch-container"));
+  window.musicP5Instance = new window.p5(
+    sketch,
+    document.getElementById("sketch-container")
+  );
 }
 
 window.initSketch = initSketch;
