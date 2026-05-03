@@ -173,10 +173,129 @@ const projects: Project[] = [
   {
     number: "03",
     category: "Academic",
-    name: "Software Engineering Project",
+    name: "JAS Hospital Management System",
     description:
-      "A structured project applying software engineering concepts including system design, requirements, and implementation.",
-    tech: "Software Engineering, System Design, Programming",
+      "A hospital patient record management system built as an academic data structures project. It simulates patient management, emergency handling, and treatment tracking using linked lists, queues, and stacks.",
+    tech: "C++, Data Structures, Linked Lists, Queue, Stack",
+    href: "https://sites.google.com/view/jashospital/home",
+    buttonLabel: "View Project",
+    secondaryHref: "https://github.com/iiYARA/jas-hospital-management",
+    secondaryLabel: "View GitHub",
+    customBoxes: {
+      topLeft: (
+        <div className="w-full h-full flex flex-col p-3 sm:p-4">
+          <div className="text-[#793951] font-bold text-[11px] sm:text-xs uppercase tracking-wider leading-tight mb-2 sm:mb-3">
+            Data Structures Used
+          </div>
+          <div className="flex flex-col gap-2 flex-1 justify-center">
+            <div
+              className="rounded-xl border border-[#793951]/30 px-3 py-2"
+              style={{ background: "linear-gradient(135deg, rgba(255,220,232,0.7), rgba(255,200,221,0.5))" }}
+            >
+              <div className="text-[#793951] font-bold text-[10px] sm:text-[11px] uppercase tracking-wider">Linked List</div>
+              <div className="text-[#793951]/75 text-[9px] sm:text-[10px] leading-tight">Patient records</div>
+              <div className="mt-1.5 flex items-center gap-1">
+                {["P1","P2","P3","P4"].map((n,i)=>(
+                  <div key={i} className="flex items-center gap-1">
+                    <span className="rounded-md bg-white/70 border border-[#793951]/30 px-1.5 py-0.5 text-[9px] font-bold text-[#793951]">{n}</span>
+                    {i<3 && <span className="text-[#793951]/60 text-[10px]">→</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div
+              className="rounded-xl border border-[#793951]/30 px-3 py-2"
+              style={{ background: "linear-gradient(135deg, rgba(255,200,221,0.6), rgba(255,220,232,0.5))" }}
+            >
+              <div className="text-[#793951] font-bold text-[10px] sm:text-[11px] uppercase tracking-wider">Queue (FIFO)</div>
+              <div className="text-[#793951]/75 text-[9px] sm:text-[10px] leading-tight">Emergency patients</div>
+              <div className="mt-1.5 flex items-center gap-1">
+                <span className="text-[#793951]/60 text-[9px] font-semibold">in →</span>
+                {["E1","E2","E3"].map((n,i)=>(
+                  <span key={i} className="rounded-md bg-white/70 border border-[#793951]/30 px-1.5 py-0.5 text-[9px] font-bold text-[#793951]">{n}</span>
+                ))}
+                <span className="text-[#793951]/60 text-[9px] font-semibold">→ out</span>
+              </div>
+            </div>
+            <div
+              className="rounded-xl border border-[#793951]/30 px-3 py-2"
+              style={{ background: "linear-gradient(135deg, rgba(255,220,232,0.7), rgba(255,200,221,0.5))" }}
+            >
+              <div className="text-[#793951] font-bold text-[10px] sm:text-[11px] uppercase tracking-wider">Stack (LIFO)</div>
+              <div className="text-[#793951]/75 text-[9px] sm:text-[10px] leading-tight">Treatment history · undo</div>
+              <div className="mt-1.5 flex flex-col items-start gap-0.5">
+                {["T3 ← top","T2","T1"].map((n,i)=>(
+                  <span key={i} className="rounded-md bg-white/70 border border-[#793951]/30 px-1.5 py-0.5 text-[9px] font-bold text-[#793951]">{n}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+      bottomLeft: (
+        <div className="w-full h-full p-3 sm:p-4">
+          <div
+            className="w-full h-full rounded-xl border border-[#793951]/40 overflow-hidden flex flex-col"
+            style={{ background: "linear-gradient(180deg, #2a1a22 0%, #3a2230 100%)" }}
+          >
+            <div className="flex items-center gap-1.5 px-3 py-1.5 border-b border-white/10">
+              <span className="w-2 h-2 rounded-full bg-[#ff6b8a]" />
+              <span className="w-2 h-2 rounded-full bg-[#ffc8dd]" />
+              <span className="w-2 h-2 rounded-full bg-[#ffe0ec]" />
+              <span className="ml-2 text-white/60 text-[9px] font-mono">jas-hospital ▸ main.cpp</span>
+            </div>
+            <div className="flex-1 px-3 py-2 font-mono text-[9px] sm:text-[10px] leading-snug overflow-hidden">
+              <div className="text-[#ffc8dd]">=== JAS Hospital Menu ===</div>
+              <div className="text-white/85">1. Add Patient</div>
+              <div className="text-white/85">2. Show Patients</div>
+              <div className="text-white/85">3. Delete Patient</div>
+              <div className="text-white/85">4. Add Emergency Patient</div>
+              <div className="text-white/85">5. Handle Emergency</div>
+              <div className="text-white/85">6. Add Treatment</div>
+              <div className="text-white/85">7. Undo Treatment</div>
+              <div className="text-white/85">8. Exit</div>
+              <div className="text-[#ffc8dd] mt-1">{"> Choose option: _"}</div>
+            </div>
+          </div>
+        </div>
+      ),
+      right: (
+        <div className="w-full h-full flex flex-col p-5 sm:p-6 md:p-8">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#793951] flex items-center justify-center">
+              <span className="text-white font-black text-lg sm:text-xl">+</span>
+            </div>
+            <div>
+              <div className="text-[#793951] font-black text-sm sm:text-base tracking-wide">JAS HOSPITAL</div>
+              <div className="text-[#793951]/65 text-[9px] sm:text-[10px] uppercase tracking-[0.25em]">Home · About · Services · Contact</div>
+            </div>
+          </div>
+          <div className="text-[#793951]/65 font-semibold text-[10px] sm:text-xs uppercase tracking-[0.25em] mt-2">
+            Hospital Patient Record
+          </div>
+          <h4
+            className="text-[#793951] font-black leading-tight"
+            style={{ fontSize: "clamp(1.1rem, 2vw, 1.75rem)" }}
+          >
+            Management System
+          </h4>
+          <p className="text-[#793951]/80 font-medium text-xs sm:text-sm mt-2 sm:mt-3 leading-relaxed max-w-[520px]">
+            A C++ system that organizes patients, prioritizes emergencies,
+            and tracks treatments — powered by linked lists, queues, and stacks.
+          </p>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-4 sm:mt-5">
+            <StatBlock value="LL" label="Patient records" />
+            <StatBlock value="Q" label="Emergencies" />
+            <StatBlock value="S" label="Treatment undo" />
+          </div>
+          <div className="flex items-center gap-2 mt-4">
+            <span className="rounded-full border border-[#793951]/40 bg-white/50 px-2.5 py-1 text-[9px] sm:text-[10px] font-bold text-[#793951] uppercase tracking-wider">C++</span>
+            <span className="rounded-full border border-[#793951]/40 bg-white/50 px-2.5 py-1 text-[9px] sm:text-[10px] font-bold text-[#793951] uppercase tracking-wider">Data Structures</span>
+            <span className="rounded-full border border-[#793951]/40 bg-white/50 px-2.5 py-1 text-[9px] sm:text-[10px] font-bold text-[#793951] uppercase tracking-wider">Academic</span>
+          </div>
+        </div>
+      ),
+    },
   },
 ];
 
