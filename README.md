@@ -1,3 +1,1 @@
-# Welcome to your Lovable project
-
-TODO: Document your project here
+Yara Mohammad’s personal portfolio website showcasing projects, skills, and contact information.
