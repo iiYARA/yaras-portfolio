@@ -18,6 +18,7 @@ const groups: Group[] = [
       { name: "Python", tooltip: "Used for machine learning & data analysis" },
       { name: "Java", tooltip: "Object-oriented programming" },
       { name: "C++", tooltip: "Core programming and problem solving" },
+      { name: "PHP", tooltip: "Server-side web development" },
     ],
   },
   {
@@ -26,6 +27,7 @@ const groups: Group[] = [
       { name: "HTML", tooltip: "Structure of web pages" },
       { name: "CSS", tooltip: "Styling and layout" },
       { name: "JavaScript", tooltip: "Interactive web features" },
+      { name: "React", tooltip: "Modern UI library" },
     ],
   },
   {
@@ -35,11 +37,21 @@ const groups: Group[] = [
       { name: "GitHub", tooltip: "Project hosting & collaboration" },
       { name: "VS Code", tooltip: "Development environment" },
       { name: "Google Colab", tooltip: "Running ML and data notebooks" },
+      { name: "NetBeans", tooltip: "Java IDE" },
     ],
   },
   {
     title: "Database",
     skills: [{ name: "MySQL", tooltip: "Database management" }],
+  },
+  {
+    title: "AI / ML",
+    skills: [
+      { name: "Machine Learning", tooltip: "Building predictive models" },
+      { name: "Data Analysis", tooltip: "Extracting insights from data" },
+      { name: "Scikit-learn", tooltip: "ML library for Python" },
+      { name: "Pandas", tooltip: "Data manipulation in Python" },
+    ],
   },
 ];
 
