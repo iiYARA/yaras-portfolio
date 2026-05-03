@@ -47,6 +47,14 @@ html, body, #root {
   font-family: 'Kanit', sans-serif;
 }
 
+html, body, * {
+  cursor: url("/cursor-pink.png") 8 2, auto;
+}
+
+a, button, [role="button"], input, textarea, select {
+  cursor: url("/cursor-pink.png") 8 2, pointer;
+}
+
 @layer base {
   * {
     @apply border-border;
