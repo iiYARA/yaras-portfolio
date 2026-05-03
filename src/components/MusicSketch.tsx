@@ -34,11 +34,11 @@ export default function MusicSketch() {
       await loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js");
       await loadScript(`${import.meta.env.BASE_URL}sketch.js`);
 
-      setTimeout(() => {
-        if (window.initSketch) {
-          window.initSketch();
-        }
-      }, 300);
+setTimeout(() => {
+  if (window.initSketch) {
+    window.initSketch();
+  }
+}, 300);
     };
 
     start();
