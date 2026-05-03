@@ -35,6 +35,9 @@ export default function MusicSketch() {
       await loadScript(`${import.meta.env.BASE_URL}sketch.js`);
 
 setTimeout(() => {
+  const container = document.getElementById("sketch-container");
+  if (container) container.innerHTML = "";
+
   if (window.initSketch) {
     window.initSketch();
   }
