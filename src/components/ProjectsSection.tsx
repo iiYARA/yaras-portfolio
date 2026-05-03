@@ -5,6 +5,9 @@ import bgPink from "@/assets/about/pink_radial_bg.png";
 import fidakHome from "@/assets/projects/fidak-home.png";
 import fidakDonor from "@/assets/projects/fidak-donor.png";
 import fidakAdmin from "@/assets/projects/fidak-admin.png";
+import atmLogin from "@/assets/projects/atm-login.png";
+import atmAdmin from "@/assets/projects/atm-admin.png";
+import atmMachine from "@/assets/projects/atm-machine.png";
 
 type Project = {
   number: string;
@@ -294,6 +297,27 @@ const projects: Project[] = [
             <span className="rounded-full border border-[#793951]/40 bg-white/50 px-2.5 py-1 text-[9px] sm:text-[10px] font-bold text-[#793951] uppercase tracking-wider">Academic</span>
           </div>
         </div>
+      ),
+    },
+  },
+  {
+    number: "04",
+    category: "Academic",
+    name: "ATM Banking System",
+    description:
+      "A Java-based ATM simulation project that recreates the user flow of an ATM machine, including login, balance checking, cash withdrawal, deposit, PIN change, and admin access through an interactive graphical interface.",
+    tech: "Java, Java Swing, GUI, OOP",
+    href: "[PASTE YOUR ATM GITHUB LINK HERE]",
+    buttonLabel: "View GitHub",
+    customBoxes: {
+      topLeft: (
+        <img src={atmLogin} alt="ATM user login welcome screen" className="w-full h-full object-cover" />
+      ),
+      bottomLeft: (
+        <img src={atmAdmin} alt="ATM admin login screen" className="w-full h-full object-cover" />
+      ),
+      right: (
+        <img src={atmMachine} alt="ATM transaction screen" className="w-full h-full object-cover" />
       ),
     },
   },
