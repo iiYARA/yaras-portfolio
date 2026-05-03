@@ -78,7 +78,7 @@ const SkillsSection = () => {
         <TooltipProvider delayDuration={150}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
             {groups.map((group, gi) => (
-              <FadeIn key={group.title} delay={gi * 0.1} y={30}>
+              <FadeIn key={group.title} delay={gi * 0.1} y={30} className={group.title === "AI / ML" ? "sm:col-span-2" : undefined}>
                 <motion.div
                   whileHover={{
                     scale: 1.02,
