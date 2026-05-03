@@ -14,6 +14,8 @@ type Project = {
   tech: string;
   href?: string;
   buttonLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
   customBoxes?: {
     topLeft: React.ReactNode;
     bottomLeft: React.ReactNode;
