@@ -249,7 +249,7 @@ const ProjectCard = ({ project, progress, range, targetScale, targetY }: CardPro
                 rel="noopener noreferrer"
                 className="inline-block rounded-full border border-[#793951] text-[#793951] hover:bg-[rgba(121,57,81,0.1)] transition-colors px-6 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-xs sm:text-sm font-medium uppercase tracking-widest cursor-pointer whitespace-nowrap"
               >
-                View Project
+                {project.buttonLabel ?? "View Project"}
               </a>
             ) : (
               <button className="rounded-full border border-[#793951] text-[#793951] hover:bg-[rgba(121,57,81,0.1)] transition-colors px-6 py-2.5 sm:px-8 sm:py-3 md:px-10 md:py-3.5 text-xs sm:text-sm font-medium uppercase tracking-widest cursor-pointer whitespace-nowrap">
