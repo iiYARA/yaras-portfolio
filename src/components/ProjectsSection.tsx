@@ -13,6 +13,7 @@ type Project = {
   description: string;
   tech: string;
   href?: string;
+  buttonLabel?: string;
   customBoxes?: {
     topLeft: React.ReactNode;
     bottomLeft: React.ReactNode;
