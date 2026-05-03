@@ -1,10 +1,17 @@
 import { useEffect } from "react";
 
+declare global {
+  interface Window {
+    initSketch?: () => void;
+  }
+}
+
 export default function MusicSketch() {
   useEffect(() => {
     const loadScript = (src: string) => {
       return new Promise<void>((resolve, reject) => {
         const existing = document.querySelector(`script[src="${src}"]`);
+
         if (existing) {
           resolve();
           return;
@@ -25,10 +32,13 @@ export default function MusicSketch() {
 
       await loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js");
       await loadScript("https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js");
-
-      // Important for GitHub Pages:
-      // This loads public/sketch.js from /yaras-portfolio/sketch.js
       await loadScript(`${import.meta.env.BASE_URL}sketch.js`);
+
+      setTimeout(() => {
+        if (window.initSketch) {
+          window.initSketch();
+        }
+      }, 300);
     };
 
     start();
@@ -36,11 +46,6 @@ export default function MusicSketch() {
     return () => {
       const container = document.getElementById("sketch-container");
       if (container) container.innerHTML = "";
-
-      const sketchScript = document.querySelector(
-        `script[src="${import.meta.env.BASE_URL}sketch.js"]`
-      );
-      if (sketchScript) sketchScript.remove();
     };
   }, []);
 
@@ -69,7 +74,6 @@ export default function MusicSketch() {
         style={{
           color: "rgba(255,255,255,0.65)",
           fontSize: "clamp(0.95rem, 1.3vw, 1.15rem)",
-          marginBottom: "48px",
           maxWidth: "800px",
           margin: "0 auto 48px",
           whiteSpace: "pre-line",
@@ -85,6 +89,7 @@ export default function MusicSketch() {
         style={{
           width: "100%",
           maxWidth: "1280px",
+          minHeight: "500px",
           margin: "0 auto",
         }}
       />
