@@ -374,4 +374,4 @@ function initSketch() {
   new p5(sketch, document.getElementById("sketch-container"));
 }
 
-initSketch();
+window.initSketch = initSketch;
