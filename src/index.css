@@ -47,12 +47,12 @@ html, body, #root {
   font-family: 'Kanit', sans-serif;
 }
 
-html, body, * {
-  cursor: url("/cursor-pink.png") 8 2, auto;
+html, body, *, *::before, *::after {
+  cursor: url("/cursor-pink.png") 8 2, auto !important;
 }
 
-a, button, [role="button"], input, textarea, select {
-  cursor: url("/cursor-pink.png") 8 2, pointer;
+a, button, [role="button"], input, textarea, select, label, summary, [onclick], .cursor-pointer {
+  cursor: url("/cursor-pink.png") 8 2, pointer !important;
 }
 
 @layer base {
